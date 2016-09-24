@@ -1,0 +1,514 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F330CC071D941DAC009E8493 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330CC061D941DAC009E8493 /* CustomViews.swift */; };
+		F330CC091D954288009E8493 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330CC081D954288009E8493 /* Telemetry.swift */; };
+		F330CC0B1D954BAE009E8493 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330CC0A1D954BAE009E8493 /* ViewController.swift */; };
+		F330CC0E1D954BC3009E8493 /* DirtRallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330CC0D1D954BC3009E8493 /* DirtRallyViewController.swift */; };
+		F330CC101D954BF2009E8493 /* F12016ViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F330CC0F1D954BF2009E8493 /* F12016ViewController~ipad.xib */; };
+		F390CDA01D9560EE003688C5 /* F12016ViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F390CD9F1D9560EE003688C5 /* F12016ViewController~iphone.xib */; };
+		F390CDA31D956B3A003688C5 /* Instructions.html in Resources */ = {isa = PBXBuildFile; fileRef = F390CDA21D956B3A003688C5 /* Instructions.html */; };
+		F390CDA51D957064003688C5 /* gethost.m in Sources */ = {isa = PBXBuildFile; fileRef = F390CDA41D957064003688C5 /* gethost.m */; };
+		F390CDA81D95756A003688C5 /* DirtRallyViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F390CDA71D95756A003688C5 /* DirtRallyViewController~ipad.xib */; };
+		F390CDAA1D9585CB003688C5 /* DirtRallyViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F390CDA91D9585CB003688C5 /* DirtRallyViewController~iphone.xib */; };
+		F3FBEDFA1D93F19600CACEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FBEDF91D93F19600CACEBA /* AppDelegate.swift */; };
+		F3FBEDFC1D93F19600CACEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3FBEDFB1D93F19600CACEBA /* Assets.xcassets */; };
+		F3FBEDFF1D93F19600CACEBA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3FBEDFD1D93F19600CACEBA /* MainMenu.xib */; };
+		F3FBEE151D93F7BF00CACEBA /* udpserver.c in Sources */ = {isa = PBXBuildFile; fileRef = F3FBEE131D93F7BF00CACEBA /* udpserver.c */; };
+		F3FBEE201D94034700CACEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FBEE1F1D94034700CACEBA /* AppDelegate.swift */; };
+		F3FBEE221D94034700CACEBA /* F12016ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FBEE211D94034700CACEBA /* F12016ViewController.swift */; };
+		F3FBEE251D94034700CACEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3FBEE231D94034700CACEBA /* Main.storyboard */; };
+		F3FBEE271D94034700CACEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3FBEE261D94034700CACEBA /* Assets.xcassets */; };
+		F3FBEE2A1D94034700CACEBA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3FBEE281D94034700CACEBA /* LaunchScreen.storyboard */; };
+		F3FBEE2F1D9403C500CACEBA /* udpserver.c in Sources */ = {isa = PBXBuildFile; fileRef = F3FBEE131D93F7BF00CACEBA /* udpserver.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F330CC061D941DAC009E8493 /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
+		F330CC081D954288009E8493 /* Telemetry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Telemetry.swift; path = ../Lib/Telemetry.swift; sourceTree = "<group>"; };
+		F330CC0A1D954BAE009E8493 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F330CC0D1D954BC3009E8493 /* DirtRallyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirtRallyViewController.swift; sourceTree = "<group>"; };
+		F330CC0F1D954BF2009E8493 /* F12016ViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "F12016ViewController~ipad.xib"; sourceTree = "<group>"; };
+		F390CD9F1D9560EE003688C5 /* F12016ViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "F12016ViewController~iphone.xib"; sourceTree = "<group>"; };
+		F390CDA21D956B3A003688C5 /* Instructions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Instructions.html; sourceTree = "<group>"; };
+		F390CDA41D957064003688C5 /* gethost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = gethost.m; path = Lib/gethost.m; sourceTree = SOURCE_ROOT; };
+		F390CDA61D957095003688C5 /* gethost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gethost.h; path = Lib/gethost.h; sourceTree = SOURCE_ROOT; };
+		F390CDA71D95756A003688C5 /* DirtRallyViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "DirtRallyViewController~ipad.xib"; sourceTree = "<group>"; };
+		F390CDA91D9585CB003688C5 /* DirtRallyViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "DirtRallyViewController~iphone.xib"; sourceTree = "<group>"; };
+		F3FBEDF61D93F19600CACEBA /* TelemetryMasters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TelemetryMasters.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3FBEDF91D93F19600CACEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F3FBEDFB1D93F19600CACEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F3FBEDFE1D93F19600CACEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F3FBEE001D93F19600CACEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3FBEE121D93F7BF00CACEBA /* TelemetryMasters-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TelemetryMasters-Bridging-Header.h"; path = "../Lib/TelemetryMasters-Bridging-Header.h"; sourceTree = "<group>"; };
+		F3FBEE131D93F7BF00CACEBA /* udpserver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = udpserver.c; path = ../Lib/udpserver.c; sourceTree = "<group>"; };
+		F3FBEE141D93F7BF00CACEBA /* udpserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = udpserver.h; path = ../Lib/udpserver.h; sourceTree = "<group>"; };
+		F3FBEE1D1D94034700CACEBA /* TelemetryMasters-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TelemetryMasters-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3FBEE1F1D94034700CACEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F3FBEE211D94034700CACEBA /* F12016ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F12016ViewController.swift; sourceTree = "<group>"; };
+		F3FBEE241D94034700CACEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F3FBEE261D94034700CACEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F3FBEE291D94034700CACEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F3FBEE2B1D94034700CACEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F3FBEDF31D93F19600CACEBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3FBEE1A1D94034700CACEBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F330CC0C1D954BB7009E8493 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				F3FBEE261D94034700CACEBA /* Assets.xcassets */,
+				F3FBEE281D94034700CACEBA /* LaunchScreen.storyboard */,
+				F3FBEE2B1D94034700CACEBA /* Info.plist */,
+				F390CDA21D956B3A003688C5 /* Instructions.html */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		F390CDA11D9568DC003688C5 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				F3FBEDFB1D93F19600CACEBA /* Assets.xcassets */,
+				F3FBEE001D93F19600CACEBA /* Info.plist */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		F3FBEDED1D93F19600CACEBA = {
+			isa = PBXGroup;
+			children = (
+				F3FBEE181D94001500CACEBA /* Lib */,
+				F3FBEDF81D93F19600CACEBA /* TelemetryMasters */,
+				F3FBEE1E1D94034700CACEBA /* TelemetryMasters-iOS */,
+				F3FBEDF71D93F19600CACEBA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F3FBEDF71D93F19600CACEBA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F3FBEDF61D93F19600CACEBA /* TelemetryMasters.app */,
+				F3FBEE1D1D94034700CACEBA /* TelemetryMasters-iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F3FBEDF81D93F19600CACEBA /* TelemetryMasters */ = {
+			isa = PBXGroup;
+			children = (
+				F3FBEDF91D93F19600CACEBA /* AppDelegate.swift */,
+				F3FBEDFD1D93F19600CACEBA /* MainMenu.xib */,
+				F390CDA11D9568DC003688C5 /* Assets */,
+			);
+			path = TelemetryMasters;
+			sourceTree = "<group>";
+		};
+		F3FBEE181D94001500CACEBA /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				F3FBEE131D93F7BF00CACEBA /* udpserver.c */,
+				F3FBEE141D93F7BF00CACEBA /* udpserver.h */,
+				F3FBEE121D93F7BF00CACEBA /* TelemetryMasters-Bridging-Header.h */,
+				F390CDA41D957064003688C5 /* gethost.m */,
+				F390CDA61D957095003688C5 /* gethost.h */,
+				F330CC081D954288009E8493 /* Telemetry.swift */,
+			);
+			name = Lib;
+			path = TelemetryMasters;
+			sourceTree = "<group>";
+		};
+		F3FBEE1E1D94034700CACEBA /* TelemetryMasters-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F3FBEE1F1D94034700CACEBA /* AppDelegate.swift */,
+				F3FBEE211D94034700CACEBA /* F12016ViewController.swift */,
+				F330CC0D1D954BC3009E8493 /* DirtRallyViewController.swift */,
+				F330CC0A1D954BAE009E8493 /* ViewController.swift */,
+				F330CC061D941DAC009E8493 /* CustomViews.swift */,
+				F390CDA71D95756A003688C5 /* DirtRallyViewController~ipad.xib */,
+				F390CDA91D9585CB003688C5 /* DirtRallyViewController~iphone.xib */,
+				F330CC0F1D954BF2009E8493 /* F12016ViewController~ipad.xib */,
+				F390CD9F1D9560EE003688C5 /* F12016ViewController~iphone.xib */,
+				F3FBEE231D94034700CACEBA /* Main.storyboard */,
+				F330CC0C1D954BB7009E8493 /* Assets */,
+			);
+			path = "TelemetryMasters-iOS";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F3FBEDF51D93F19600CACEBA /* TelemetryMasters */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3FBEE031D93F19600CACEBA /* Build configuration list for PBXNativeTarget "TelemetryMasters" */;
+			buildPhases = (
+				F3FBEDF21D93F19600CACEBA /* Sources */,
+				F3FBEDF31D93F19600CACEBA /* Frameworks */,
+				F3FBEDF41D93F19600CACEBA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TelemetryMasters;
+			productName = TelemetryMasters;
+			productReference = F3FBEDF61D93F19600CACEBA /* TelemetryMasters.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F3FBEE1C1D94034700CACEBA /* TelemetryMasters-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3FBEE2C1D94034700CACEBA /* Build configuration list for PBXNativeTarget "TelemetryMasters-iOS" */;
+			buildPhases = (
+				F3FBEE191D94034700CACEBA /* Sources */,
+				F3FBEE1A1D94034700CACEBA /* Frameworks */,
+				F3FBEE1B1D94034700CACEBA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TelemetryMasters-iOS";
+			productName = "TelemetryMasters-iOS";
+			productReference = F3FBEE1D1D94034700CACEBA /* TelemetryMasters-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F3FBEDEE1D93F19600CACEBA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = shdwprince;
+				TargetAttributes = {
+					F3FBEDF51D93F19600CACEBA = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = T7SD4W2ENW;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+					F3FBEE1C1D94034700CACEBA = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = T7SD4W2ENW;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = F3FBEDF11D93F19600CACEBA /* Build configuration list for PBXProject "TelemetryMasters" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F3FBEDED1D93F19600CACEBA;
+			productRefGroup = F3FBEDF71D93F19600CACEBA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F3FBEDF51D93F19600CACEBA /* TelemetryMasters */,
+				F3FBEE1C1D94034700CACEBA /* TelemetryMasters-iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F3FBEDF41D93F19600CACEBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3FBEDFC1D93F19600CACEBA /* Assets.xcassets in Resources */,
+				F3FBEDFF1D93F19600CACEBA /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3FBEE1B1D94034700CACEBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F390CDA81D95756A003688C5 /* DirtRallyViewController~ipad.xib in Resources */,
+				F3FBEE2A1D94034700CACEBA /* LaunchScreen.storyboard in Resources */,
+				F390CDAA1D9585CB003688C5 /* DirtRallyViewController~iphone.xib in Resources */,
+				F3FBEE271D94034700CACEBA /* Assets.xcassets in Resources */,
+				F330CC101D954BF2009E8493 /* F12016ViewController~ipad.xib in Resources */,
+				F390CDA31D956B3A003688C5 /* Instructions.html in Resources */,
+				F390CDA01D9560EE003688C5 /* F12016ViewController~iphone.xib in Resources */,
+				F3FBEE251D94034700CACEBA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F3FBEDF21D93F19600CACEBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3FBEE151D93F7BF00CACEBA /* udpserver.c in Sources */,
+				F3FBEDFA1D93F19600CACEBA /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3FBEE191D94034700CACEBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F330CC0B1D954BAE009E8493 /* ViewController.swift in Sources */,
+				F3FBEE2F1D9403C500CACEBA /* udpserver.c in Sources */,
+				F390CDA51D957064003688C5 /* gethost.m in Sources */,
+				F330CC071D941DAC009E8493 /* CustomViews.swift in Sources */,
+				F3FBEE221D94034700CACEBA /* F12016ViewController.swift in Sources */,
+				F330CC091D954288009E8493 /* Telemetry.swift in Sources */,
+				F3FBEE201D94034700CACEBA /* AppDelegate.swift in Sources */,
+				F330CC0E1D954BC3009E8493 /* DirtRallyViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F3FBEDFD1D93F19600CACEBA /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3FBEDFE1D93F19600CACEBA /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		F3FBEE231D94034700CACEBA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3FBEE241D94034700CACEBA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F3FBEE281D94034700CACEBA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3FBEE291D94034700CACEBA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F3FBEE011D93F19600CACEBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F3FBEE021D93F19600CACEBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		F3FBEE041D93F19600CACEBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = T7SD4W2ENW;
+				INFOPLIST_FILE = TelemetryMasters/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.shdwprince.TelemetryMasters;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Lib/TelemetryMasters-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		F3FBEE051D93F19600CACEBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = T7SD4W2ENW;
+				INFOPLIST_FILE = TelemetryMasters/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.shdwprince.TelemetryMasters;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Lib/TelemetryMasters-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		F3FBEE2D1D94034700CACEBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = T7SD4W2ENW;
+				INFOPLIST_FILE = "TelemetryMasters-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.shdwprince.TelemetryMasters-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Lib/TelemetryMasters-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F3FBEE2E1D94034700CACEBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = T7SD4W2ENW;
+				INFOPLIST_FILE = "TelemetryMasters-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.shdwprince.TelemetryMasters-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Lib/TelemetryMasters-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F3FBEDF11D93F19600CACEBA /* Build configuration list for PBXProject "TelemetryMasters" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3FBEE011D93F19600CACEBA /* Debug */,
+				F3FBEE021D93F19600CACEBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3FBEE031D93F19600CACEBA /* Build configuration list for PBXNativeTarget "TelemetryMasters" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3FBEE041D93F19600CACEBA /* Debug */,
+				F3FBEE051D93F19600CACEBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3FBEE2C1D94034700CACEBA /* Build configuration list for PBXNativeTarget "TelemetryMasters-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3FBEE2D1D94034700CACEBA /* Debug */,
+				F3FBEE2E1D94034700CACEBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F3FBEDEE1D93F19600CACEBA /* Project object */;
+}

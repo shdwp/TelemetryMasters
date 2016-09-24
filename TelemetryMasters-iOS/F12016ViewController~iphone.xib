@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="F12016ViewController" customModule="TelemetryMasters_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="fuelGauge" destination="hyJ-by-iuK" id="gDv-vk-rVi"/>
+                <outlet property="fuelLabel" destination="NWg-R2-iAx" id="nju-Ji-kBI"/>
+                <outlet property="gearLabel" destination="pXZ-Vd-PnQ" id="h2P-sm-nd5"/>
+                <outlet property="mainLabel" destination="zpU-eF-5BD" id="4eB-p1-p6z"/>
+                <outlet property="positionLabel" destination="w6L-U9-bNJ" id="ERf-zE-ji4"/>
+                <outlet property="revCounterView" destination="cIi-CR-23Q" id="Yk2-a1-3Xn"/>
+                <outlet property="secondaryLabel" destination="GYr-5q-Fq4" id="NpN-TM-KGY"/>
+                <outlet property="speedLabel" destination="VTh-Ls-KQL" id="5qE-h5-Fcv"/>
+                <outlet property="tyreStatusView" destination="MrG-q8-v6b" id="kDO-ba-4Wp"/>
+                <outlet property="view" destination="iN0-l3-epB" id="pf3-mH-YcK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MrG-q8-v6b" customClass="TyreStatus" customModule="TelemetryMasters_iOS" customModuleProvider="target">
+                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="184" id="dTl-qV-rna"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="offset">
+                            <real key="value" value="25"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="forceOffset">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="forceHeight">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="bouncerRadius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="diffEnabled" value="NO"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="xOffset">
+                            <real key="value" value="40"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="yOffset">
+                            <real key="value" value="30"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hyJ-by-iuK" customClass="PlainGauge" customModule="TelemetryMasters_iOS" customModuleProvider="target">
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="hyJ-by-iuK" secondAttribute="height" multiplier="191:28" id="foA-l6-heY"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="progress">
+                            <real key="value" value="0.40000000000000002"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="colored" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:32.124" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpU-eF-5BD">
+                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="48"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-28.385" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYr-5q-Fq4">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="GYr-5q-Fq4" secondAttribute="height" multiplier="4:1" id="YIq-T1-N69"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="96"/>
+                    <color key="textColor" red="0.0001922522367" green="1" blue="0.1971572093" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXZ-Vd-PnQ">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="pXZ-Vd-PnQ" secondAttribute="height" multiplier="164:119" id="mUU-RF-y7t"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="72"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12lb" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWg-R2-iAx">
+                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="328" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTh-Ls-KQL">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="VTh-Ls-KQL" secondAttribute="height" multiplier="86:29" id="pdf-P5-z3V"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="138"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cIi-CR-23Q" customClass="RevCounterView" customModule="TelemetryMasters_iOS" customModuleProvider="target">
+                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="cIi-CR-23Q" secondAttribute="height" multiplier="736:75" id="2VR-nx-9tq"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P16 L54" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6L-U9-bNJ">
+                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="32"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+            <constraints>
+                <constraint firstItem="NWg-R2-iAx" firstAttribute="leading" secondItem="hyJ-by-iuK" secondAttribute="leading" id="4fp-kW-6vS"/>
+                <constraint firstItem="VTh-Ls-KQL" firstAttribute="top" secondItem="GYr-5q-Fq4" secondAttribute="bottom" constant="8" id="50m-W2-oyg"/>
+                <constraint firstItem="pXZ-Vd-PnQ" firstAttribute="centerY" secondItem="VTh-Ls-KQL" secondAttribute="centerY" id="9ol-D8-KhJ"/>
+                <constraint firstItem="NWg-R2-iAx" firstAttribute="centerY" secondItem="hyJ-by-iuK" secondAttribute="centerY" id="9pj-gA-aLC"/>
+                <constraint firstAttribute="bottom" secondItem="hyJ-by-iuK" secondAttribute="bottom" constant="7" id="AuR-Yx-Eu0"/>
+                <constraint firstItem="NWg-R2-iAx" firstAttribute="centerX" secondItem="hyJ-by-iuK" secondAttribute="centerX" id="Ell-ts-g8G"/>
+                <constraint firstItem="pXZ-Vd-PnQ" firstAttribute="leading" secondItem="MrG-q8-v6b" secondAttribute="trailing" constant="8" id="FZ5-In-cAN"/>
+                <constraint firstItem="MrG-q8-v6b" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="7" id="IzI-gs-Rtc"/>
+                <constraint firstAttribute="trailing" secondItem="GYr-5q-Fq4" secondAttribute="trailing" constant="20" id="Job-N1-0B9"/>
+                <constraint firstItem="cIi-CR-23Q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="KCO-yX-zAz"/>
+                <constraint firstItem="zpU-eF-5BD" firstAttribute="top" secondItem="cIi-CR-23Q" secondAttribute="bottom" constant="8" id="L6e-lR-vfH"/>
+                <constraint firstItem="MrG-q8-v6b" firstAttribute="top" secondItem="w6L-U9-bNJ" secondAttribute="bottom" constant="16" id="MmY-Fq-kEv"/>
+                <constraint firstItem="w6L-U9-bNJ" firstAttribute="centerX" secondItem="MrG-q8-v6b" secondAttribute="centerX" id="OGL-fH-25S"/>
+                <constraint firstAttribute="trailing" secondItem="zpU-eF-5BD" secondAttribute="trailing" constant="20" id="ayG-3A-PJe"/>
+                <constraint firstItem="VTh-Ls-KQL" firstAttribute="leading" secondItem="pXZ-Vd-PnQ" secondAttribute="trailing" constant="8" id="brx-1p-mo5"/>
+                <constraint firstItem="cIi-CR-23Q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="cOv-xX-gyZ"/>
+                <constraint firstAttribute="bottom" secondItem="VTh-Ls-KQL" secondAttribute="bottom" constant="10" id="e2M-TQ-xbs"/>
+                <constraint firstItem="GYr-5q-Fq4" firstAttribute="top" secondItem="zpU-eF-5BD" secondAttribute="bottom" constant="8" id="emc-6F-WwW"/>
+                <constraint firstItem="hyJ-by-iuK" firstAttribute="width" secondItem="MrG-q8-v6b" secondAttribute="width" id="g32-1G-XFn"/>
+                <constraint firstItem="zpU-eF-5BD" firstAttribute="width" secondItem="GYr-5q-Fq4" secondAttribute="width" id="jp9-1V-sOz"/>
+                <constraint firstItem="w6L-U9-bNJ" firstAttribute="top" secondItem="cIi-CR-23Q" secondAttribute="bottom" constant="16.5" id="kLa-LB-RD7"/>
+                <constraint firstItem="GYr-5q-Fq4" firstAttribute="leading" secondItem="MrG-q8-v6b" secondAttribute="trailing" constant="8" id="ovV-YH-Pk3"/>
+                <constraint firstItem="hyJ-by-iuK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="7" id="pry-Cd-cnM"/>
+                <constraint firstItem="hyJ-by-iuK" firstAttribute="top" secondItem="MrG-q8-v6b" secondAttribute="bottom" constant="1" id="uuR-Ju-anw"/>
+                <constraint firstAttribute="trailing" secondItem="cIi-CR-23Q" secondAttribute="trailing" id="v7W-XC-Cf7"/>
+                <constraint firstAttribute="trailing" secondItem="VTh-Ls-KQL" secondAttribute="trailing" constant="20" id="zUV-aO-JR7"/>
+            </constraints>
+            <point key="canvasLocation" x="32.5" y="52.5"/>
+        </view>
+    </objects>
+</document>
