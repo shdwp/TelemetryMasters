@@ -292,9 +292,20 @@ class TyreStatus: UIView {
 
     override func setNeedsDisplay() {
         for (i, layer) in tireLayers.enumerated() {
-            let tireStatus = self.suspPosition[i] / self.suspPositionMax
+            let power: Float = self.suspPosition[i] / self.suspPositionMax
+            var red: Float = 0.0, green: Float = 1.0
+            if power <= 0 {
+            } else if power<0.5 {
+                green = 1.0
+                red = 2 * power
+            } else if power<=1 {
+                red = 1.0
+                green = 1.0 - 2.0 * (power-0.5)
+            } else {
+                red = 1.0
+            }
 
-            layer.backgroundColor = UIColor(red: CGFloat(1.0 * CGFloat(tireStatus)), green: CGFloat(1.0 * (1.0 - tireStatus)), blue: 0, alpha: 1).cgColor
+            layer.backgroundColor = UIColor(red: CGFloat(red), green: CGFloat(green), blue: 0, alpha: 1).cgColor
         }
 
         bouncerLayer.frame = CGRect(x: self.frame.width / 2 + CGFloat(force.lat) - bouncerRadius,

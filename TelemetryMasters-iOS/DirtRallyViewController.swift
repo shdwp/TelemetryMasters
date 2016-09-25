@@ -59,7 +59,7 @@ class DirtRallyViewController: UIViewController, TelemetryDelegate {
             }
 
             self.speedLabel.text = "\(Int(x.m_speed * 3.6))"
-            self.timeLabel.text = self.formatTime(x.m_time)
+            self.timeLabel.text = self.formatTime(x.m_lapTime)
 
             self.throttleCounterView.progress = CGFloat(x.m_throttle)
             self.throttleCounterView.setNeedsDisplay()
@@ -67,12 +67,17 @@ class DirtRallyViewController: UIViewController, TelemetryDelegate {
             self.rpmCounterView.progress = CGFloat(x.m_engineRate / x.m_max_rpm)
             self.rpmCounterView.setNeedsDisplay()
 
-            let fd = x.m_wheel_speed_fr - x.m_wheel_speed_fl
-            let bd = x.m_wheel_speed_br - x.m_wheel_speed_bl
-            let md = (x.m_wheel_speed_fr + x.m_wheel_speed_fl) / 2 + (x.m_wheel_speed_br + x.m_wheel_speed_bl) / 2
+            let avgSpeed = (x.m_wheel_speed_fr + x.m_wheel_speed_fl + x.m_wheel_speed_br + x.m_wheel_speed_bl)/4
+            let fd = (x.m_wheel_speed_fr - x.m_wheel_speed_fl) * 3
+            let bd = (x.m_wheel_speed_br - x.m_wheel_speed_bl) * 3
+            let md = ((x.m_wheel_speed_fr + x.m_wheel_speed_fl) / 2 + (x.m_wheel_speed_br + x.m_wheel_speed_bl) / 2) * 0.25
             self.tyreStatusView.differentials = [fd, bd, md, ]
-            self.tyreStatusView.suspPosition = [50+x.m_susp_pos_fl, 50+x.m_susp_pos_fr, 50+x.m_susp_pos_bl, 50+x.m_susp_pos_br, ]
-            self.tyreStatusView.suspPositionMax = 50
+            self.tyreStatusView.suspPosition = [x.m_wheel_speed_fr - avgSpeed,
+                                                x.m_wheel_speed_fl - avgSpeed,
+                                                x.m_wheel_speed_br - avgSpeed,
+                                                x.m_wheel_speed_bl - avgSpeed, ]
+            self.tyreStatusView.suspPositionMax = 2
+            
             self.tyreStatusView.force = TyreStatus.Force(lat: x.m_gforce_lat * 20, lon: x.m_gforce_lon * 5)
             self.tyreStatusView.setNeedsDisplay()
 

@@ -116,7 +116,7 @@ class Telemetry {
 
     func readF1Packet() -> F1UDPPacket? {
         var packet = F1UDPPacket()
-        return self.readPacket(ref: &packet, timeout: 5.0) ? packet : nil
+        return UDPRead(self.ld, &packet) != 0 ? packet : nil
     }
 
     func readDirtRallyPacket() -> DirtRallyPacket? {

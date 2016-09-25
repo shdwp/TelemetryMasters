@@ -125,6 +125,9 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
 
     func resetMode(new mode: SessionType) {
         self.fuelMax = 0
+        self.currentLapTimes = []
+        self.lastLapTimes = []
+        self.lastLapTime = 0
     }
 
     func renderRevInMode(_ mode: SessionType, packet x: F1UDPPacket) {
