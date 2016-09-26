@@ -125,8 +125,8 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
 
     func resetMode(new mode: SessionType) {
         self.fuelMax = 0
-        self.currentLapTimes = []
-        self.lastLapTimes = []
+        self.currentLapTimes = [:]
+        self.lastLapTimes = [:]
         self.lastLapTime = 0
     }
 
@@ -164,9 +164,9 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
         self.speedLabel.text = "\(Int(Double(x.m_speed) * speedCoef))"
 
         if (mode == .Race) {
-            self.positionLabel.text = "P\(Int(x.m_car_position)) L\(Int(x.m_lap))"
+            self.positionLabel.text = "P\(Int(x.m_car_position+1)) L\(Int(x.m_lap+1))"
         } else {
-            self.positionLabel.text = "P\(Int(x.m_car_position)) L\(Int(x.m_lap))"
+            self.positionLabel.text = "L\(Int(x.m_lap+1))"
         }
 
         self.fuelLabel.text = String(format:"%.0flb", x.m_fuel_in_tank)

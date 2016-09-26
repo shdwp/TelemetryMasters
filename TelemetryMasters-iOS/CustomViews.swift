@@ -21,7 +21,8 @@ class RevCounterView: UIView {
 
     override func layoutSubviews() {
         self.layer.sublayers?.removeAll()
-        
+
+        layers = []
         radius = (self.frame.width - border*CGFloat(count)) / CGFloat(count) / 2
         for i in 0..<count {
             let point = CGPoint(x: border/2 + CGFloat(i)*(radius*2 + border), y: 0)
