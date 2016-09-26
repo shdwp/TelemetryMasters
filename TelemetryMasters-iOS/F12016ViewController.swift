@@ -8,7 +8,7 @@
 
 import UIKit
 
-class F12016ViewController: UIViewController, TelemetryDelegate {
+class F12016ViewController: TelemetryViewerController {
     enum SessionType {
         case Unknown
         case Practice
@@ -29,18 +29,6 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
         }
     }
 
-    override var prefersStatusBarHidden: Bool {
-        return UIDevice.current.userInterfaceIdiom != .pad
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscape
-    }
-
     @IBOutlet weak var revCounterView: RevCounterView!
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var gearLabel: UILabel!
@@ -53,8 +41,6 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
     @IBOutlet weak var fuelGauge: PlainGauge!
     @IBOutlet weak var fuelLabel: UILabel!
     
-    private var lastUpdate: CFAbsoluteTime = 0
-    private var updateInterval: CFTimeInterval = 0.016
     private var fuelMax: Float = 0
     private var currentMode: SessionType = .Unknown
     private var pitStatus: Float = -1
@@ -62,15 +48,7 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
     private var currentLapTimes: [Float: Float] = [:]
     private var lastLapTime: Float = 0
 
-    func telemetryDidProceedTo(_ stage: Telemetry.Stage, instance: Telemetry) {
-        if stage != .Connected {
-            self.dismiss(animated: true, completion: {
-                instance.removeDelegate(self)
-            })
-        }
-    }
-
-    func telemetryDidGetPacket(_ packet: Any, instance: Telemetry) {
+    override func telemetryDidGetPacket(_ packet: Any, instance: Telemetry) {
         let x = packet as! F1UDPPacket
 
         if x.m_lapTime < self.lastLapTime {
@@ -84,7 +62,7 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
             if overwrite {
                 self.lastLapTimes = self.currentLapTimes
             }
-            
+
             self.currentLapTimes = [:]
         }
         
@@ -94,20 +72,14 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
         if !self.currentLapTimes.keys.contains(distIdentifier) {
             self.currentLapTimes[distIdentifier] = x.m_lapTime
         }
-        
-        OperationQueue.main.addOperation {
-            guard self.revCounterView != nil else {
-                return
-            }
-            
-            guard CFAbsoluteTimeGetCurrent() - self.lastUpdate > self.updateInterval else {
-                return
-            }
+
+        self.queueUiUpdate {
+            guard self.revCounterView != nil else { return }
             
             if self.fuelMax < x.m_fuel_in_tank {
                 self.fuelMax = x.m_fuel_in_tank
             }
-            
+
             if self.currentMode != SessionType(x.m_sessionType) || self.pitStatus != x.m_in_pits {
                 self.currentMode = SessionType(x.m_sessionType)
                 self.pitStatus = x.m_in_pits
@@ -118,8 +90,6 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
             self.renderRevInMode(SessionType(x.m_sessionType), packet: x)
             self.renderGaugesInMode(SessionType(x.m_sessionType), packet: x)
             self.renderLabelsInMode(SessionType(x.m_sessionType), packet: x)
-            
-            self.lastUpdate = CFAbsoluteTimeGetCurrent()
         }
     }
 
@@ -185,12 +155,9 @@ class F12016ViewController: UIViewController, TelemetryDelegate {
         
     }
 
-    func formatTime(_ value: Float) -> String {
-        let minutes = value / 60.0
-        let seconds = value - floor(minutes) * 60.0
-        let ms = (value - floor(minutes) * 60.0 - floor(seconds))
-
-        return String.init(format: "%02d:%02d.%03d", Int(minutes), Int(seconds), Int(ms * 1000))
+    override func viewDidAppear(_ animated: Bool) {
+        self.revCounterView.progress = 0.9
+        self.revCounterView.setNeedsDisplay()
     }
 
     override func viewDidLoad() {

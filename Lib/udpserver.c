@@ -28,6 +28,11 @@ long UDPRead(int sd, void *packet) {
     return n;
 }
 
+long UDPPeek(int sd) {
+    char buf[MAXBUF];
+    return UDPRead(sd, &buf);
+}
+
 /* server main routine */
 
 int UDPSock(in_port_t port) {

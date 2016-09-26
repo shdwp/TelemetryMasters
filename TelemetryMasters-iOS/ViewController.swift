@@ -10,9 +10,8 @@ import Foundation
 import UIKit
 
 class ViewController: UIViewController, TelemetryDelegate {
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var messageLabel: UILabel!
 
-    var initialWaiting = true
     var telemetry: Telemetry?
 
     override func viewDidLoad() {
@@ -23,24 +22,16 @@ class ViewController: UIViewController, TelemetryDelegate {
         super.viewDidLoad()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+        super.viewWillAppear(animated)
+    }
+
     func telemetryDidProceedTo(_ stage: Telemetry.Stage, instance: Telemetry) {
         OperationQueue.main.addOperation {
             switch stage {
-            case .Unknown:
-                self.webView.loadHTMLString("Error: unknown stage", baseURL: nil)
-                break
             case .WaitingForGame:
-                if self.initialWaiting {
-                    self.initialWaiting = false
-
-                    let path = Bundle.main.path(forResource: "Instructions", ofType: "html")
-                    let url = URL(fileURLWithPath: path!)
-                    let code = try! String.init(contentsOf: url)
-
-                    self.webView.loadHTMLString(code.replacingOccurrences(of: "{IP}", with: getHostAddress()), baseURL: nil)
-                } else {
-                    self.webView.loadHTMLString("<h1>Waiting for the game...</h1>", baseURL: nil)
-                }
+                self.messageLabel.text = "Waiting for the game..."
                 break
             case .Connected:
                 switch instance.game {
@@ -49,10 +40,41 @@ class ViewController: UIViewController, TelemetryDelegate {
                 case .DirtRally:
                     self.performSegue(withIdentifier: "proceedToDirtRallyController", sender: nil)
                 default:
-                    self.webView.loadHTMLString("Error: unknown game", baseURL: nil)
+                    self.messageLabel.text = "Error: invalid stage"
                 }
+            default:
+                self.messageLabel.text = "Error: invalid stage"
+                break
             }
         }
+    }
+
+    func telemetryDidEncounterError(_ error: NSError, instance: Telemetry) {
+        let ctrl = UIAlertController.init(title: "Error", message: nil, preferredStyle: .actionSheet)
+        let errorType = Telemetry.Error(error.code)
+
+        switch errorType {
+        case Telemetry.Error.UnknownGame:
+            ctrl.message = "Game not detected! Select the game:"
+            ctrl.addAction(UIAlertAction.init(title: "F1 2016", style: .default, handler: { (a) in
+                self.telemetry?.forceConnected(game: .F12016)
+            }))
+
+            ctrl.addAction(UIAlertAction.init(title: "Dirt Rally", style: .default, handler: { (a) in
+                self.telemetry?.forceConnected(game: .DirtRally)
+            }))
+
+            break
+        default:
+            ctrl.message = "Unknown error has occured (\(errorType))"
+            break
+        }
+
+        ctrl.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (a) in
+            ctrl.dismiss(animated: true, completion: nil)
+        }))
+
+        self.present(ctrl, animated: true, completion: nil)
     }
 
     func telemetryDidGetPacket(_ packet: Any, instance: Telemetry) {
@@ -60,7 +82,77 @@ class ViewController: UIViewController, TelemetryDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let controller = segue.destination as! TelemetryDelegate
-        telemetry?.addDelegate(controller)
+        if segue.identifier == "proceedToInstructions" {
+            let path = Bundle.main.path(forResource: "Instructions", ofType: "html")
+            let url = URL(fileURLWithPath: path!)
+            let code = try! String.init(contentsOf: url)
+
+            if let webView = segue.destination.view.viewWithTag(1) as? UIWebView {
+                webView.loadHTMLString(code.replacingOccurrences(of: "{IP}", with: getHostAddress()), baseURL: nil)
+            }
+
+            self.navigationController?.isNavigationBarHidden = false
+        } else {
+            let controller = segue.destination as! TelemetryDelegate
+            telemetry?.addDelegate(controller)
+        }
+    }
+}
+
+class TelemetryViewerController: UIViewController, TelemetryDelegate {
+    override var prefersStatusBarHidden: Bool {
+        return UIDevice.current.userInterfaceIdiom != .pad
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .landscape
+    }
+
+    private var lastUpdate: CFAbsoluteTime = 0, updateInterval = 0.016
+
+    func telemetryDidEncounterError(_ error: NSError, instance: Telemetry) {
+        let ctrl = UIAlertController.init(title: "Error", message:  "Unknown error has occured (\(Telemetry.Error(error.code)))", preferredStyle: .alert)
+        ctrl.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (a) in
+            ctrl.dismiss(animated: true, completion: nil)
+        }))
+
+        self.present(ctrl, animated: true, completion: nil)
+    }
+
+    func telemetryDidGetPacket(_ packet: Any, instance: Telemetry) {
+
+    }
+
+    func telemetryDidProceedTo(_ stage: Telemetry.Stage, instance: Telemetry) {
+        if stage != .Connected {
+            OperationQueue.main.addOperation {
+                instance.removeDelegate(self)
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+
+    func formatTime(_ value: Float) -> String {
+        let minutes = value / 60.0
+        let seconds = value - floor(minutes) * 60.0
+        let ms = (value - floor(minutes) * 60.0 - floor(seconds))
+
+        return String.init(format: "%02d:%02d.%03d", Int(minutes), Int(seconds), Int(ms * 1000))
+    }
+
+
+    func queueUiUpdate(_ block: @escaping () -> Swift.Void) {
+        OperationQueue.main.addOperation {
+            guard CFAbsoluteTimeGetCurrent() - self.lastUpdate > self.updateInterval else {
+                return
+            }
+
+            block()
+            self.lastUpdate = CFAbsoluteTimeGetCurrent()
+        }
     }
 }

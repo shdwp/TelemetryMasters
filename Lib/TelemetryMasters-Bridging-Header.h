@@ -140,6 +140,7 @@ struct DirtRallyPacket {
 };
 
 long UDPRead(int sd, void *packet);
+long UDPPeek(int sd);
 int UDPSock(in_port_t port);
 
 NSString *getHostAddress();

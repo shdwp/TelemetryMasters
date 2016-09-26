@@ -11,6 +11,7 @@ import Foundation
 protocol TelemetryDelegate: class {
     func telemetryDidProceedTo(_ stage: Telemetry.Stage, instance: Telemetry)
     func telemetryDidGetPacket(_ packet: Any, instance: Telemetry)
+    func telemetryDidEncounterError(_ error: NSError, instance: Telemetry)
 }
 
 class Telemetry {
@@ -20,10 +21,23 @@ class Telemetry {
         case Connected
     }
 
-    enum Game {
-        case Unknown
-        case F12016
-        case DirtRally
+    enum Error: Int {
+        case Unknown = 0
+        case UnknownGame = 1
+
+        init(_ raw: Int) {
+            if let error = Error(rawValue: raw) {
+                self = error
+            } else {
+                self = .Unknown
+            }
+        }
+    }
+
+    enum Game: Int {
+        case Unknown = -1
+        case F12016 = 280
+        case DirtRally = 264
     }
 
     var delegates: [TelemetryDelegate] = []
@@ -74,15 +88,17 @@ class Telemetry {
                 while true {
                     switch self.stage {
                     case .WaitingForGame:
-                        var pointer = UnsafeMutableRawPointer.allocate(bytes: 1024*1024, alignedTo: 0)
-                        let len = UDPRead(self.ld, &pointer)
-                        if len == 264 {
-                            self.game = .DirtRally
+                        let len = UDPPeek(self.ld)
+                        if let game = Game(rawValue: len) {
+                            self.game = game
+                            self.stage = .Connected
                         } else {
-                            self.game = .F12016
-                        }
+                            self.delegates.forEach({ (d) in
+                                d.telemetryDidEncounterError(NSError.init(domain: "", code: Error.UnknownGame.rawValue, userInfo: nil), instance: self)
+                            })
 
-                        self.stage = .Connected
+                            self.stage = .Unknown
+                        }
                     case .Connected:
                         switch self.game {
                         case .F12016:
@@ -101,31 +117,29 @@ class Telemetry {
                             } else {
                                 self.stage = .WaitingForGame
                             }
-                        default:
-                            print("Telemetry game == unknown!")
-                            return
+                        default: return
                         }
                     default:
-                        print("Telemetry stage == unknown!")
-                        return
+                        Thread.sleep(forTimeInterval: 1.0)
                     }
                 }
             }
         }
     }
 
+    func forceConnected(game: Game) {
+        self.game = game
+        self.stage = .Connected
+    }
+
     func readF1Packet() -> F1UDPPacket? {
         var packet = F1UDPPacket()
-        return UDPRead(self.ld, &packet) != 0 ? packet : nil
+        return self.readPacket(ref: &packet, timeout: 1.0) ? packet : nil
     }
 
     func readDirtRallyPacket() -> DirtRallyPacket? {
         var packet = DirtRallyPacket()
-        return UDPRead(self.ld, &packet) != 0 ? packet : nil
-        /*
-        // TODO: fix number
-        return self.readPacket(ref: &packet, timeout: 99.0) ? packet : nil
- */
+        return self.readPacket(ref: &packet, timeout: 1.0) ? packet : nil
     }
 
     private func readPacket(ref: UnsafeMutableRawPointer, timeout: TimeInterval) -> Bool {
@@ -134,8 +148,8 @@ class Telemetry {
         }
 
         let startTime = CFAbsoluteTimeGetCurrent()
-        while sockQueue.operationCount != 0 && CFAbsoluteTimeGetCurrent() - startTime < 1.0 {
-            RunLoop.current.run(until: Date().addingTimeInterval(0.01))
+        while sockQueue.operationCount != 0 && CFAbsoluteTimeGetCurrent() - startTime < timeout {
+            Thread.sleep(forTimeInterval: 0.01)
         }
 
         return sockQueue.operationCount == 0

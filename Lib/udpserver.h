@@ -13,6 +13,7 @@
 #include <sys/socket.h>
 
 long UDPRead(int sd, void *packet);
+long UDPPeek(int sd);
 int UDPSock(in_port_t port);
 
 #endif /* udpserver_h */
