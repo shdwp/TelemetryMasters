@@ -161,7 +161,7 @@ class F12016ViewController: TelemetryViewerController {
     }
 
     override func viewDidLoad() {
-        let height = UIScreen.main.bounds.size.height
+        let height = max(UIScreen.main.bounds.size.height, UIScreen.main.bounds.size.width)
 
         if height <= 480 {
             self.speedLabel.font = self.speedLabel.font.withSize(72)
@@ -170,6 +170,10 @@ class F12016ViewController: TelemetryViewerController {
         } else if height <= 568 {
             self.speedLabel.font = self.speedLabel.font.withSize(96)
             self.secondaryLabel.font = self.secondaryLabel.font.withSize(72)
+            self.mainLabel.font = self.mainLabel.font.withSize(48)
+        } else if height == 736 {
+            self.speedLabel.font = self.speedLabel.font.withSize(128)
+            self.secondaryLabel.font = self.secondaryLabel.font.withSize(112)
             self.mainLabel.font = self.mainLabel.font.withSize(48)
         }
 

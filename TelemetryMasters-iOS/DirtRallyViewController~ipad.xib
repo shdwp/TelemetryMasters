@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,9 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bp4-4y-txV" customClass="RallyRPMCounter" customModule="TelemetryMasters_iOS" customModuleProvider="target">
-                    <frame key="frameInset" minY="75" width="1016" height="250"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bp4-4y-txV" customClass="RallyRPMCounter" customModule="TelemetryMasters_iOS" customModuleProvider="target">
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="progress">
@@ -49,10 +48,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zvh-fT-qzL" customClass="RallyRPMCounter" customModule="TelemetryMasters_iOS" customModuleProvider="target">
-                    <frame key="frameInset" minY="-14" width="1024" height="327"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zvh-fT-qzL" customClass="RallyRPMCounter" customModule="TelemetryMasters_iOS" customModuleProvider="target">
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Zvh-fT-qzL" secondAttribute="height" multiplier="1024:327" id="K0j-bj-a9K"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="progress">
                             <real key="value" value="0.84999999999999998"/>
@@ -65,24 +65,24 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="27:38.124" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THY-SZ-bSx">
-                    <frame key="frameInset" minX="40" minY="20" width="195" height="27"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27:38.124" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THY-SZ-bSx">
                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="32"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="128" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tka-r6-m1g">
-                    <frame key="frameInset" minX="678" minY="410" width="306" height="313"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="128" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tka-r6-m1g">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="tka-r6-m1g" secondAttribute="height" multiplier="306:313" id="twE-PL-U6z"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="172"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L9e-7b-D52" customClass="PlainGauge" customModule="TelemetryMasters_iOS" customModuleProvider="target">
-                    <frame key="frameInset" minX="243" minY="26" width="741" height="14"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L9e-7b-D52" customClass="PlainGauge" customModule="TelemetryMasters_iOS" customModuleProvider="target">
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="J8O-EZ-JT9"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="progress">
                             <real key="value" value="0.5"/>
@@ -92,24 +92,26 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="delimeters" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sty-v0-3CI">
-                    <frame key="frameInset" minX="365" minY="410" width="270" height="313"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sty-v0-3CI">
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZO-oU-pZ3">
-                            <frame key="frameInset" minX="8" minY="8" width="254" height="297"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZO-oU-pZ3">
                             <fontDescription key="fontDescription" type="system" pointSize="360"/>
                             <color key="textColor" red="0.85238381409999997" green="0.0" blue="0.0079798088959999996" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="0.1950921474" green="0.0" blue="0.01276522941" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="ZZO-oU-pZ3" firstAttribute="centerY" secondItem="sty-v0-3CI" secondAttribute="centerY" id="2DJ-Bg-dZj"/>
+                        <constraint firstItem="ZZO-oU-pZ3" firstAttribute="centerX" secondItem="sty-v0-3CI" secondAttribute="centerX" id="LWz-89-JQZ"/>
+                        <constraint firstAttribute="width" secondItem="sty-v0-3CI" secondAttribute="height" multiplier="270:313" id="aPO-zu-rDy"/>
+                    </constraints>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T9W-kj-jET" customClass="TyreStatus" customModule="TelemetryMasters_iOS" customModuleProvider="target">
-                    <frame key="frameInset" minX="20" minY="351" width="255" height="446"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9W-kj-jET" customClass="TyreStatus" customModule="TelemetryMasters_iOS" customModuleProvider="target">
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="T9W-kj-jET" secondAttribute="height" multiplier="255:446" id="Vhb-xw-LsR"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="offset">
                             <real key="value" value="20"/>
@@ -140,6 +142,29 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="sty-v0-3CI" firstAttribute="top" secondItem="bp4-4y-txV" secondAttribute="bottom" constant="77" id="B1V-ac-PAd"/>
+                <constraint firstAttribute="trailing" secondItem="Zvh-fT-qzL" secondAttribute="trailing" id="CSi-1v-3e2"/>
+                <constraint firstItem="THY-SZ-bSx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="HTw-JN-tDG"/>
+                <constraint firstItem="bp4-4y-txV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IPG-VI-RAq"/>
+                <constraint firstItem="Zvh-fT-qzL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-14" id="JEO-jc-S09"/>
+                <constraint firstAttribute="bottom" secondItem="tka-r6-m1g" secondAttribute="bottom" constant="45" id="KUe-hf-Ipd"/>
+                <constraint firstAttribute="trailing" secondItem="L9e-7b-D52" secondAttribute="trailing" constant="40" id="Tla-3f-L77"/>
+                <constraint firstItem="L9e-7b-D52" firstAttribute="centerY" secondItem="THY-SZ-bSx" secondAttribute="centerY" id="UxI-d2-jXI"/>
+                <constraint firstItem="L9e-7b-D52" firstAttribute="leading" secondItem="THY-SZ-bSx" secondAttribute="trailing" constant="29.5" id="Xd8-uD-Y6u"/>
+                <constraint firstItem="T9W-kj-jET" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Xu7-7z-XPx"/>
+                <constraint firstItem="bp4-4y-txV" firstAttribute="top" secondItem="Zvh-fT-qzL" secondAttribute="top" constant="80" id="Y45-Wa-O8c"/>
+                <constraint firstItem="bp4-4y-txV" firstAttribute="bottom" secondItem="Zvh-fT-qzL" secondAttribute="bottom" constant="20" id="bFK-j0-vz1"/>
+                <constraint firstAttribute="bottom" secondItem="sty-v0-3CI" secondAttribute="bottom" constant="45" id="c7p-KW-hoc"/>
+                <constraint firstItem="Zvh-fT-qzL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eCh-3r-1NV"/>
+                <constraint firstItem="T9W-kj-jET" firstAttribute="top" secondItem="Zvh-fT-qzL" secondAttribute="bottom" constant="38" id="jh3-Wr-iFF"/>
+                <constraint firstItem="sty-v0-3CI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="onx-6M-9Ts"/>
+                <constraint firstAttribute="trailing" secondItem="bp4-4y-txV" secondAttribute="trailing" id="pp2-S8-ADC"/>
+                <constraint firstItem="THY-SZ-bSx" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="roG-jl-rHK"/>
+                <constraint firstItem="tka-r6-m1g" firstAttribute="leading" secondItem="sty-v0-3CI" secondAttribute="trailing" constant="31" id="w0U-iI-dkn"/>
+                <constraint firstAttribute="trailing" secondItem="tka-r6-m1g" secondAttribute="trailing" constant="40" id="wcq-oq-fpC"/>
+                <constraint firstAttribute="bottom" secondItem="T9W-kj-jET" secondAttribute="bottom" constant="-29" id="z9x-jF-haS"/>
+            </constraints>
         </view>
     </objects>
 </document>
