@@ -17,7 +17,7 @@
 
 /* this routine echos any messages (UDP datagrams) received */
 
-#define MAXBUF 1024*1024
+#define MAXBUF 512
 
 long UDPRead(int sd, void *packet) {
     struct sockaddr_in remote;
@@ -38,7 +38,7 @@ long UDPPeek(int sd) {
 int UDPSock(in_port_t port) {
     int ld;
     struct sockaddr_in skaddr;
-    int length;
+    unsigned int length;
 
     /* create a socket
      IP protocol family (PF_INET)
