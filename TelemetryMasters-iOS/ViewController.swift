@@ -9,8 +9,39 @@
 import Foundation
 import UIKit
 
-class ViewController: UIViewController, TelemetryDelegate {
+class Settings {
+    class F1 {
+        enum Keys: String {
+            case showRevCounter = "showRevCounter"
+            case revCounterType = "revCounterType"
+        }
+
+        static func showRevCounter() -> Bool {
+            return UserDefaults.standard.object(forKey: Keys.showRevCounter.rawValue) as? Bool ?? true
+        }
+
+        static func revCounterType() -> RevCounterView.CounterType {
+            return RevCounterView.CounterType(rawValue: UserDefaults.standard.object(forKey: Keys.revCounterType.rawValue) as? Int ?? 0)!
+        }
+    }
+
+    class DirtRally {
+        enum Keys: String {
+            case numberOfSectors = "numberOfSectors"
+        }
+        
+        static func numberOfSectors() -> Int {
+            return UserDefaults.standard.object(forKey: Keys.numberOfSectors.rawValue) as? Int ?? 10
+        }
+    }
+}
+
+class ViewController: UITableViewController, TelemetryDelegate {
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var f1RevSwitch: UISwitch!
+    @IBOutlet weak var f1RevType: UISegmentedControl!
+    @IBOutlet weak var rallySectionsSlider: UISlider!
+    @IBOutlet weak var rallySectionsLabel: UILabel!
 
     var telemetry: Telemetry?
 
@@ -19,12 +50,27 @@ class ViewController: UIViewController, TelemetryDelegate {
         telemetry?.addDelegate(self)
         telemetry?.startServer()
 
+        self.f1RevSwitch.isOn = Settings.F1.showRevCounter()
+        self.f1RevType.selectedSegmentIndex = Settings.F1.revCounterType().rawValue
+
+        self.rallySectionsSlider.value = Float(Settings.DirtRally.numberOfSectors())
+        self.rallySectionsLabel.text = "\(Settings.DirtRally.numberOfSectors())"
+
         super.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         super.viewWillAppear(animated)
+    }
+
+    @IBAction func changedSettingsAction(_ sender: AnyObject) {
+        UserDefaults.standard.set(self.f1RevSwitch.isOn, forKey: Settings.F1.Keys.showRevCounter.rawValue)
+        UserDefaults.standard.set(Int(self.rallySectionsSlider.value), forKey: Settings.DirtRally.Keys.numberOfSectors.rawValue)
+        UserDefaults.standard.set(self.f1RevType.selectedSegmentIndex, forKey: Settings.F1.Keys.revCounterType.rawValue)
+
+        self.rallySectionsSlider.value = Float(Settings.DirtRally.numberOfSectors())
+        self.rallySectionsLabel.text = "\(Settings.DirtRally.numberOfSectors())"
     }
 
     func telemetryDidProceedTo(_ stage: Telemetry.Stage, instance: Telemetry) {
@@ -108,10 +154,6 @@ class TelemetryViewerController: UIViewController, TelemetryDelegate {
         return .lightContent
     }
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscape
-    }
-
     private var lastUpdate: CFAbsoluteTime = 0, updateInterval = 0.016
 
     func telemetryDidEncounterError(_ error: NSError, instance: Telemetry) {
@@ -146,13 +188,19 @@ class TelemetryViewerController: UIViewController, TelemetryDelegate {
 
 
     func queueUiUpdate(_ block: @escaping () -> Swift.Void) {
-        OperationQueue.main.addOperation {
-            guard CFAbsoluteTimeGetCurrent() - self.lastUpdate > self.updateInterval else {
-                return
-            }
+        guard CFAbsoluteTimeGetCurrent() - self.lastUpdate > self.updateInterval else {
+            return
+        }
 
+        OperationQueue.main.addOperation {
             block()
             self.lastUpdate = CFAbsoluteTimeGetCurrent()
         }
+    }
+}
+
+class NavigationControllerDelegate: NSObject, UINavigationControllerDelegate {
+    func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
+        return .landscape
     }
 }

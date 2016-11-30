@@ -12,17 +12,45 @@ import CoreGraphics
 
 @IBDesignable
 class RevCounterView: UIView {
-    @IBInspectable var progress: Float = 0
+    enum DRSState {
+        case disabled
+        case available
+        case enabled
+    }
 
-    @IBInspectable var count: Int = 12
-    @IBInspectable var border: CGFloat = 10, radius: CGFloat = 0
+    enum CounterType: Int {
+        case full = 0
+        case limited
+    }
+    
+    enum Light: Int {
+        case drs = 0
+        case firstRev = 5
+        case middleRev = 9
+        case lastRev = 14
+    }
+
+    @IBInspectable var count: Int = 15
+    @IBInspectable var border: CGFloat = 12, radius: CGFloat = 0
+    var type = CounterType.limited
+
+    let colors = [UIColor.black,
+                  UIColor(red: 0.2, green: 1.0, blue: 0.2, alpha: 1.0),
+                  UIColor(red: 1.0, green: 0.2, blue: 0.2, alpha: 1.0),
+                  UIColor(red: 0.33, green: 0.0, blue: 1.0, alpha: 1.0), ]
+    let overlayColors = [UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3).cgColor,
+                         UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.01).cgColor, ]
 
     var layers: [CALayer] = []
+    var overlays: [CAGradientLayer] = []
 
     override func layoutSubviews() {
+        super.layoutSubviews()
+
         self.layer.sublayers?.removeAll()
 
         layers = []
+        overlays = []
         radius = (self.frame.width - border*CGFloat(count)) / CGFloat(count) / 2
         for i in 0..<count {
             let point = CGPoint(x: border/2 + CGFloat(i)*(radius*2 + border), y: 0)
@@ -31,37 +59,113 @@ class RevCounterView: UIView {
             layer.frame = CGRect(x: point.x, y: point.y, width: radius*2, height: radius*2)
             layer.cornerRadius = radius
 
-            self.layer.addSublayer(layer)
-            layers.append(layer)
-        }
-        
-        super.layoutSubviews()
-    }
+            let overlayLayer = CAGradientLayer()
+            overlayLayer.frame = layer.frame
+            overlayLayer.cornerRadius = layer.cornerRadius
 
-    override func setNeedsDisplay() {
-        for (i, layer) in layers.enumerated() {
-            layer.backgroundColor = UIColor.darkGray.cgColor
-            
-            if Float(i) <= progress * Float(count) {
-                switch i {
-                case 0...4:
-                    layer.backgroundColor = UIColor.green.cgColor
-                case 4...8:
-                    layer.backgroundColor = UIColor.red.cgColor
-                default:
-                    layer.backgroundColor = UIColor.blue.cgColor
-                }
+            overlayLayer.startPoint = CGPoint(x: 1, y: 0)
+            overlayLayer.endPoint = CGPoint(x: 0.8, y: 1)
+
+            if self.frame.size.height > 0 {
+                self.layer.addSublayer(layer)
+                self.layer.addSublayer(overlayLayer)
             }
+
+            layers.append(layer)
+            overlays.append(overlayLayer)
+
+            self.setLight(at: i, false)
+        }
+    }
+
+    func index(of light: Light) -> Int {
+        switch light {
+        case .drs:
+            return self.type == .limited ? 0 : 4
+        case .firstRev:
+            return self.type == .limited ? 5 : 0
+        case .middleRev:
+            return self.type == .limited ? 9 : 5
+        case .lastRev:
+            return 14
+        }
+    }
+
+    var lightsAnimationTime: [Int: CFAbsoluteTime] = [:]
+    func blinkLight(at index: Int, interval: Double) {
+        let layer = self.layers[index]
+
+        if layer.animationKeys()?.count ?? 0 == 0 {
+            
+            let anim = CABasicAnimation(keyPath: "backgroundColor")
+            anim.toValue = self.colors[0].cgColor
+            anim.duration = interval
+            anim.isRemovedOnCompletion = true
+            
+            layer.add(anim, forKey: "blinkAnimation")
+        }
+    }
+
+    func blinkLight(at index: Light, interval: Double) {
+        self.blinkLight(at: self.index(of: index), interval: interval)
+    }
+
+    func blinkLights(from: Light, to: Light, interval: Double) {
+        for index in self.index(of: from) ... self.index(of: to) {
+            self.blinkLight(at: index, interval: interval)
+        }
+    }
+
+    func setLight(at index: Light, _ state: Bool) {
+        self.setLight(at: self.index(of: index), state)
+    }
+
+    func setLight(at index: Int, _ state: Bool) {
+        // check whether there is animation running right now
+        guard self.layers[index].animationKeys()?.count ?? 0 == 0 else {
+            return
         }
 
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
 
-        super.setNeedsDisplay()
+        let layer = self.layers[index]
+        let overlay = self.overlays[index]
+
+        if state {
+            overlay.colors = self.overlayColors.reversed()
+
+            if index < self.count / 3 {
+                layer.backgroundColor = self.colors[1].cgColor
+            } else if index < self.count - self.count / 3 {
+                layer.backgroundColor = self.colors[2].cgColor
+            } else {
+                layer.backgroundColor = self.colors[3].cgColor
+            }
+            
+        } else {
+            layer.backgroundColor = self.colors[0].cgColor
+            overlay.colors = self.overlayColors
+        }
+
+        CATransaction.commit()
     }
-    
+
+    func setRevLight(progress: Float, drsLight: Bool) {
+        let range = (self.index(of: .firstRev) ... self.index(of: .lastRev))
+        for (relativeIndex, i) in range.enumerated() {
+            if drsLight && self.index(of: .drs) == i {
+                continue 
+            }
+            
+            self.setLight(at: i, Float(relativeIndex) <= progress * Float(range.count))
+        }
+    }
+
     #if TARGET_INTERFACE_BUILDER
     override func draw(_ rect: CGRect) {
         self.layoutSubviews()
-        self.setNeedsDisplay()
+        self.setRevLight(progress: 0.7)
     }
     #endif
 }
@@ -155,6 +259,7 @@ class PlainGauge: UIView {
     @IBInspectable var horizontal: Bool = false
     @IBInspectable var colored: Bool = false
     @IBInspectable var delimeters: Bool = false
+    @IBInspectable var delimetersCount: Int = 10
     let gaugeLayer = CALayer()
     let delimetersLayer = CAShapeLayer()
 
@@ -164,7 +269,7 @@ class PlainGauge: UIView {
 
         if delimeters {
             let path = UIBezierPath()
-            for i in 0...10 {
+            for i in 0...delimetersCount {
                 path.move(to: CGPoint(x: CGFloat(i) * self.frame.width / 10, y: 0))
                 path.addLine(to: CGPoint(x: CGFloat(i) * self.frame.width / 10, y: self.frame.height))
             }

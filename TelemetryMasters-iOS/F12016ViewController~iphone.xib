@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A320" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -14,6 +14,7 @@
                 <outlet property="gearLabel" destination="pXZ-Vd-PnQ" id="h2P-sm-nd5"/>
                 <outlet property="mainLabel" destination="zpU-eF-5BD" id="4eB-p1-p6z"/>
                 <outlet property="positionLabel" destination="w6L-U9-bNJ" id="ERf-zE-ji4"/>
+                <outlet property="revCounterHideConstraint" destination="gMe-Dd-vsg" id="WaE-o3-M3k"/>
                 <outlet property="revCounterView" destination="cIi-CR-23Q" id="Yk2-a1-3Xn"/>
                 <outlet property="secondaryLabel" destination="GYr-5q-Fq4" id="NpN-TM-KGY"/>
                 <outlet property="speedLabel" destination="VTh-Ls-KQL" id="5qE-h5-Fcv"/>
@@ -23,7 +24,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
+            <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MrG-q8-v6b" customClass="TyreStatus" customModule="TelemetryMasters_iOS" customModuleProvider="target">
@@ -32,9 +33,6 @@
                         <constraint firstAttribute="width" constant="184" id="dTl-qV-rna"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="offset">
-                            <real key="value" value="25"/>
-                        </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="forceOffset">
                             <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
@@ -66,11 +64,6 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="colored" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01:32.124" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpU-eF-5BD">
-                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="48"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-0.385" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYr-5q-Fq4">
                     <constraints>
                         <constraint firstAttribute="width" secondItem="GYr-5q-Fq4" secondAttribute="height" multiplier="4:1" id="YIq-T1-N69"/>
@@ -103,11 +96,17 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cIi-CR-23Q" customClass="RevCounterView" customModule="TelemetryMasters_iOS" customModuleProvider="target">
                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="cIi-CR-23Q" secondAttribute="height" multiplier="736:75" id="2VR-nx-9tq"/>
+                        <constraint firstAttribute="width" secondItem="cIi-CR-23Q" secondAttribute="height" multiplier="736:40" priority="999" id="2VR-nx-9tq"/>
+                        <constraint firstAttribute="height" id="gMe-Dd-vsg"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P06 L54" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6L-U9-bNJ">
                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="32"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01:32.124" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpU-eF-5BD">
+                    <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="48"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>

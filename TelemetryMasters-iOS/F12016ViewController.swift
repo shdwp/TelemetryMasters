@@ -30,6 +30,7 @@ class F12016ViewController: TelemetryViewerController {
     }
 
     @IBOutlet weak var revCounterView: RevCounterView!
+    
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var gearLabel: UILabel!
 
@@ -40,22 +41,59 @@ class F12016ViewController: TelemetryViewerController {
     @IBOutlet weak var tyreStatusView: TyreStatus!
     @IBOutlet weak var fuelGauge: PlainGauge!
     @IBOutlet weak var fuelLabel: UILabel!
+    @IBOutlet weak var revCounterHideConstraint: NSLayoutConstraint!
     
     private var fuelMax: Float = 0
     private var currentMode: SessionType = .Unknown
     private var pitStatus: Float = -1
     private var lastLapTimes: [Float: Float] = [:]
     private var currentLapTimes: [Float: Float] = [:]
-    private var lastLapTime: Float = 0
+    private var lastTime: Float = 0, lapChangeTime: CFTimeInterval = 0, lastLapTime: Float = 0, lastLastLapTime: Float?
+
+    private var mainLabelFont: UIFont!, mainLabelBoldFont: UIFont!
+
+    override func viewDidAppear(_ animated: Bool) {
+        self.revCounterView.setNeedsDisplay()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let height = max(UIScreen.main.bounds.size.height, UIScreen.main.bounds.size.width)
+
+        if height <= 480 {
+            self.speedLabel.font = self.speedLabel.font.withSize(48)
+            self.secondaryLabel.font = self.secondaryLabel.font.withSize(56)
+            self.mainLabel.font = self.mainLabel.font.withSize(48)
+        } else if height <= 568 {
+            self.speedLabel.font = self.speedLabel.font.withSize(96)
+            self.secondaryLabel.font = self.secondaryLabel.font.withSize(72)
+            self.mainLabel.font = self.mainLabel.font.withSize(48)
+        } else if height == 736 {
+            self.speedLabel.font = self.speedLabel.font.withSize(128)
+            self.secondaryLabel.font = self.secondaryLabel.font.withSize(112)
+            self.mainLabel.font = self.mainLabel.font.withSize(48)
+        }
+
+        self.mainLabelFont = self.mainLabel.font
+        self.mainLabelBoldFont = UIFont(name: "Menlo-Bold", size: self.mainLabelFont.pointSize)
+
+        self.revCounterHideConstraint.isActive = !Settings.F1.showRevCounter()
+        self.revCounterView.type = Settings.F1.revCounterType()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
 
     override func telemetryDidGetPacket(_ packet: Any, instance: Telemetry) {
         let x = packet as! F1UDPPacket
 
-        if x.m_lapTime < self.lastLapTime {
+        if x.m_lapTime < self.lastTime {
             var overwrite = false
             if SessionType(x.m_sessionType) == .Race {
                 overwrite = true
-            } else if self.lastLapTimes.keys.max() ?? 0 > self.currentLapTimes.keys.max() ?? 0 {
+            } else if self.lastLapTimes.keys.max() ?? 0 > self.currentLapTimes.keys.max() ?? 0 || self.lastLapTimes.count != self.currentLapTimes.count {
                 overwrite = true
             }
             
@@ -64,9 +102,12 @@ class F12016ViewController: TelemetryViewerController {
             }
 
             self.currentLapTimes = [:]
+            self.lastLastLapTime = self.lastLapTime
+            self.lastLapTime = self.lastTime
+            self.lapChangeTime = CFAbsoluteTimeGetCurrent()
         }
         
-        self.lastLapTime = x.m_lapTime
+        self.lastTime = x.m_lapTime
         
         let distIdentifier = floor(x.m_lapDistance / 10)
         if !self.currentLapTimes.keys.contains(distIdentifier) {
@@ -84,39 +125,52 @@ class F12016ViewController: TelemetryViewerController {
                 self.currentMode = SessionType(x.m_sessionType)
                 self.pitStatus = x.m_in_pits
                 
-                self.resetMode(new: self.currentMode)
+                self.resetMode(new: self.currentMode, packet: x)
             }
-            
+
             self.renderRevInMode(SessionType(x.m_sessionType), packet: x)
             self.renderGaugesInMode(SessionType(x.m_sessionType), packet: x)
             self.renderLabelsInMode(SessionType(x.m_sessionType), packet: x)
         }
     }
 
-    func resetMode(new mode: SessionType) {
-        self.fuelMax = 0
+    func resetMode(new mode: SessionType, packet: F1UDPPacket) {
+        self.fuelMax = packet.m_fuel_in_tank
         self.currentLapTimes = [:]
         self.lastLapTimes = [:]
-        self.lastLapTime = 0
+        self.lastTime = 0
     }
 
     func renderRevInMode(_ mode: SessionType, packet x: F1UDPPacket) {
-        let width: Float = 0.15, offset: Float = -0.25
-        let head = x.m_max_rpm + x.m_max_rpm * offset
-        let window = x.m_max_rpm * width
-        let progress = (x.m_engineRate - head) / window
+        let before = 0.807 * x.m_max_rpm
+        let beyond = 0.137 * x.m_max_rpm
+        let progress = (x.m_engineRate - before) / (x.m_max_rpm - beyond - before)
         
-        self.revCounterView.progress = progress
-        self.revCounterView.setNeedsDisplay()
+        let drsLight = x.m_drsAllowed == 1 || x.m_drs == 1
+        
+        self.revCounterView.setRevLight(progress: progress, drsLight: drsLight)
+
+        if drsLight {
+            self.revCounterView.setLight(at: .drs, true)
+        }
+
+        if progress > 0.95 {
+            self.revCounterView.blinkLights(from: RevCounterView.Light.firstRev, to: RevCounterView.Light.lastRev, interval: 0.1)
+        }
+
+        if x.m_drsAllowed == 1 {
+            self.revCounterView.blinkLight(at: .drs, interval: 0.8)
+        }
     }
 
     func renderGaugesInMode(_ mode: SessionType, packet x: F1UDPPacket) {
-        self.tyreStatusView.force = TyreStatus.Force(lat: x.m_gforce_lat * 10, lon: x.m_gforce_lon * 5)
-        self.tyreStatusView.suspPosition = [x.m_susp_pos_fl * 2, x.m_susp_pos_fr * 2, x.m_susp_pos_bl * 2, x.m_susp_pos_br * 2, ]
+        let latMultiplier: Float = 10, lonMultiplier: Float = 5, suspMultiplier: Float = 2
+        self.tyreStatusView.force = TyreStatus.Force(lat: x.m_gforce_lat * latMultiplier, lon: x.m_gforce_lon * lonMultiplier)
+        self.tyreStatusView.suspPosition = [x.m_susp_pos_fl * suspMultiplier, x.m_susp_pos_fr * suspMultiplier, x.m_susp_pos_bl * suspMultiplier, x.m_susp_pos_br * suspMultiplier, ]
         self.tyreStatusView.suspPositionMax = 15*2
         self.tyreStatusView.setNeedsDisplay()
         
-        self.fuelGauge.progress = x.m_fuel_in_tank / x.m_fuel_capacity
+        self.fuelGauge.progress = x.m_fuel_in_tank / self.fuelMax
         self.fuelGauge.setNeedsDisplay()
     }
 
@@ -140,12 +194,27 @@ class F12016ViewController: TelemetryViewerController {
         }
 
         self.fuelLabel.text = String(format:"%.0flb", x.m_fuel_in_tank)
-        self.mainLabel.text = self.formatTime(x.m_lapTime)
 
-        let distIdentifier = floor(x.m_lapDistance / 10)
-        if let last = lastLapTimes[distIdentifier],
-           let current = currentLapTimes[distIdentifier] {
-            let delta = current - last
+        var delta: Float?
+        if CFAbsoluteTimeGetCurrent() - self.lapChangeTime < 3.0 {
+            self.mainLabel.text = self.formatTime(self.lastLapTime)
+            self.mainLabel.font = self.mainLabelBoldFont
+            
+            if let lastLast = self.lastLastLapTime {
+                delta = self.lastLapTime - lastLast
+            }
+        } else {
+            self.mainLabel.text = self.formatTime(x.m_lapTime)
+            self.mainLabel.font = self.mainLabelFont
+
+            let distIdentifier = floor(x.m_lapDistance / 10)
+            if let last = lastLapTimes[distIdentifier],
+                let current = currentLapTimes[distIdentifier] {
+                delta = current - last
+            }
+        }
+
+        if let delta = delta {
             self.secondaryLabel.text = String.init(format: "%02.3f", delta)
             self.secondaryLabel.textColor = delta <= 0 ? UIColor.green : UIColor.red
         } else {
@@ -153,35 +222,6 @@ class F12016ViewController: TelemetryViewerController {
             self.secondaryLabel.textColor = UIColor.white
         }
         
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        self.revCounterView.progress = 0.9
-        self.revCounterView.setNeedsDisplay()
-    }
-
-    override func viewDidLoad() {
-        let height = max(UIScreen.main.bounds.size.height, UIScreen.main.bounds.size.width)
-
-        if height <= 480 {
-            self.speedLabel.font = self.speedLabel.font.withSize(72)
-            self.secondaryLabel.font = self.secondaryLabel.font.withSize(48)
-            self.mainLabel.font = self.mainLabel.font.withSize(28)
-        } else if height <= 568 {
-            self.speedLabel.font = self.speedLabel.font.withSize(96)
-            self.secondaryLabel.font = self.secondaryLabel.font.withSize(72)
-            self.mainLabel.font = self.mainLabel.font.withSize(48)
-        } else if height == 736 {
-            self.speedLabel.font = self.speedLabel.font.withSize(128)
-            self.secondaryLabel.font = self.secondaryLabel.font.withSize(112)
-            self.mainLabel.font = self.mainLabel.font.withSize(48)
-        }
-
-        super.viewDidLoad()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 
 

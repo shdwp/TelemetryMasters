@@ -18,6 +18,12 @@ class DirtRallyViewController: TelemetryViewerController {
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var progressGauge: PlainGauge!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.progressGauge.delimetersCount = Settings.DirtRally.numberOfSectors()
+    }
+
     override func telemetryDidGetPacket(_ packet: Any, instance: Telemetry) {
         let x = packet as! DirtRallyPacket
         self.queueUiUpdate {

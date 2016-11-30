@@ -40,21 +40,10 @@ int UDPSock(in_port_t port) {
     struct sockaddr_in skaddr;
     unsigned int length;
 
-    /* create a socket
-     IP protocol family (PF_INET)
-     UDP protocol (SOCK_DGRAM)
-     */
-
     if ((ld = socket( PF_INET, SOCK_DGRAM, 0 )) < 0) {
         printf("Problem creating socket\n");
-        exit(1);
+        return -1;
     }
-
-    /* establish our address
-     address family is AF_INET
-     our IP address is INADDR_ANY (any of our IP addresses)
-     the port number is assigned by the kernel
-     */
 
     skaddr.sin_family = AF_INET;
     skaddr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -62,7 +51,7 @@ int UDPSock(in_port_t port) {
 
     if (bind(ld, (struct sockaddr *) &skaddr, sizeof(skaddr))<0) {
         printf("Problem binding\n");
-        exit(0);
+        return -1;
     }
 
     /* find out what port we were assigned and print it out */
@@ -70,7 +59,7 @@ int UDPSock(in_port_t port) {
     length = sizeof( skaddr );
     if (getsockname(ld, (struct sockaddr *) &skaddr, &length)<0) {
         printf("Error getsockname\n");
-        exit(1);
+        return -1;
     }
 
     /* port number's are network byte order, we have to convert to

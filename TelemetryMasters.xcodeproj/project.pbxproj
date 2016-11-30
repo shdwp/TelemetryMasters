@@ -51,7 +51,7 @@
 		F3FBEE141D93F7BF00CACEBA /* udpserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = udpserver.h; path = ../Lib/udpserver.h; sourceTree = "<group>"; };
 		F3FBEE1D1D94034700CACEBA /* TelemetryMasters-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TelemetryMasters-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3FBEE1F1D94034700CACEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F3FBEE211D94034700CACEBA /* F12016ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F12016ViewController.swift; sourceTree = "<group>"; };
+		F3FBEE211D94034700CACEBA /* F12016ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = F12016ViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F3FBEE241D94034700CACEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F3FBEE261D94034700CACEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3FBEE291D94034700CACEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };

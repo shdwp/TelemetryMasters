@@ -85,10 +85,11 @@ class Telemetry {
         if ld > 0 {
             self.stage = .WaitingForGame
             queue.addOperation {
-                while true {
+                while true { autoreleasepool {
                     switch self.stage {
                     case .WaitingForGame:
-                        let len = UDPPeek(self.ld)
+                        var packet = F1UDPPacket()
+                        let len = UDPRead(self.ld, &packet)
                         if let game = Game(rawValue: len) {
                             self.game = game
                             self.stage = .Connected
@@ -96,7 +97,7 @@ class Telemetry {
                             self.delegates.forEach({ (d) in
                                 d.telemetryDidEncounterError(NSError.init(domain: "", code: Error.UnknownGame.rawValue, userInfo: nil), instance: self)
                             })
-
+                            
                             self.stage = .Unknown
                         }
                     case .Connected:
@@ -121,7 +122,7 @@ class Telemetry {
                         }
                     default:
                         Thread.sleep(forTimeInterval: 1.0)
-                    }
+                    } }
                 }
             }
         }
@@ -132,24 +133,34 @@ class Telemetry {
         self.stage = .Connected
     }
 
+    var __last = 0.0
     func readF1Packet() -> F1UDPPacket? {
         var packet = F1UDPPacket()
-        return self.readPacket(ref: &packet, timeout: 1.0) ? packet : nil
+        /*
+        UDPRead(self.ld, &packet)
+        print((CFAbsoluteTimeGetCurrent() - __last) * 1000)
+        __last = CFAbsoluteTimeGetCurrent()
+        return packet
+ */
+        return self.waitForSocket {
+            UDPRead(self.ld, &packet)
+        } ? packet : nil
     }
 
     func readDirtRallyPacket() -> DirtRallyPacket? {
         var packet = DirtRallyPacket()
-        return self.readPacket(ref: &packet, timeout: 1.0) ? packet : nil
+        return self.waitForSocket {
+            UDPRead(self.ld, &packet)
+        } ? packet : nil
     }
 
-    private func readPacket(ref: UnsafeMutableRawPointer, timeout: TimeInterval) -> Bool {
-        sockQueue.addOperation {
-            UDPRead(self.ld, ref)
-        }
+    private func waitForSocket(_ operation: @escaping () -> ()) -> Bool {
+        self.sockQueue.addOperation(operation)
 
         let startTime = CFAbsoluteTimeGetCurrent()
+        let timeout = 1.0
         while sockQueue.operationCount != 0 && CFAbsoluteTimeGetCurrent() - startTime < timeout {
-            Thread.sleep(forTimeInterval: 0.01)
+            Thread.sleep(forTimeInterval: 0.005)
         }
 
         return sockQueue.operationCount == 0
