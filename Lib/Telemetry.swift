@@ -158,7 +158,7 @@ class Telemetry {
         self.sockQueue.addOperation(operation)
 
         let startTime = CFAbsoluteTimeGetCurrent()
-        let timeout = 1.0
+        let timeout = 15.0
         while sockQueue.operationCount != 0 && CFAbsoluteTimeGetCurrent() - startTime < timeout {
             Thread.sleep(forTimeInterval: 0.005)
         }

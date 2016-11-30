@@ -8,7 +8,39 @@
 
 import UIKit
 
-class F12016ViewController: TelemetryViewerController {
+struct LapStats {
+    typealias DistanceId = Float
+
+    var times: [DistanceId: Float] = [:]
+    let startTime = CFAbsoluteTimeGetCurrent()
+
+    init() {
+    }
+
+    mutating func setTime(identifier: DistanceId, time: Float) {
+        if !self.times.keys.contains(identifier) {
+            self.times[identifier] = time
+        }
+    }
+
+    mutating func setTime(distance: Float, time: Float) {
+        self.setTime(identifier: self.distanceIdentifier(distance), time: time)
+    }
+
+    subscript (distance: Float) -> Float? {
+        return self.times[self.distanceIdentifier(distance)]
+    }
+
+    func distanceIdentifier(_ distance: Float) -> DistanceId {
+        return floor(distance / 10)
+    }
+
+    func totalTime() -> Float {
+        return self.times.values.max() ?? 0.0
+    }
+}
+
+extension F1UDPPacket {
     enum SessionType {
         case Unknown
         case Practice
@@ -29,6 +61,17 @@ class F12016ViewController: TelemetryViewerController {
         }
     }
 
+    func tickStats() -> (Bool, SessionType) {
+        return (self.m_in_pits == 1.0, SessionType(self.m_sessionType))
+    }
+
+    var sessionType: SessionType {
+        return SessionType(self.m_sessionType)
+    }
+}
+
+class F12016ViewController: TelemetryViewerController {
+
     @IBOutlet weak var revCounterView: RevCounterView!
     
     @IBOutlet weak var speedLabel: UILabel!
@@ -44,11 +87,10 @@ class F12016ViewController: TelemetryViewerController {
     @IBOutlet weak var revCounterHideConstraint: NSLayoutConstraint!
     
     private var fuelMax: Float = 0
-    private var currentMode: SessionType = .Unknown
     private var pitStatus: Float = -1
-    private var lastLapTimes: [Float: Float] = [:]
-    private var currentLapTimes: [Float: Float] = [:]
-    private var lastTime: Float = 0, lapChangeTime: CFTimeInterval = 0, lastLapTime: Float = 0, lastLastLapTime: Float?
+
+    private var lastPacket = F1UDPPacket()
+    private var lapStats = LapStats(), referenceLapStats: LapStats?, lastLastLapStats: LapStats?
 
     private var mainLabelFont: UIFont!, mainLabelBoldFont: UIFont!
 
@@ -89,30 +131,29 @@ class F12016ViewController: TelemetryViewerController {
     override func telemetryDidGetPacket(_ packet: Any, instance: Telemetry) {
         let x = packet as! F1UDPPacket
 
-        if x.m_lapTime < self.lastTime {
-            var overwrite = false
-            if SessionType(x.m_sessionType) == .Race {
-                overwrite = true
-            } else if self.lastLapTimes.keys.max() ?? 0 > self.currentLapTimes.keys.max() ?? 0 || self.lastLapTimes.count != self.currentLapTimes.count {
-                overwrite = true
-            }
-            
-            if overwrite {
-                self.lastLapTimes = self.currentLapTimes
+        if x.tickStats() != self.lastPacket.tickStats() {
+            self.fuelMax = x.m_fuel_in_tank
+            self.lapStats = LapStats()
+            self.referenceLapStats = nil
+        }
+
+        if x.m_lap > self.lastPacket.m_lap {
+            switch x.sessionType {
+            case .Race:
+                self.lastLastLapStats = self.referenceLapStats
+                self.referenceLapStats = self.lapStats
+            default:
+                if let referenceLapStats = self.referenceLapStats, referenceLapStats.totalTime() < self.lapStats.totalTime() {
+                    self.lastLastLapStats = self.referenceLapStats
+                    self.referenceLapStats = self.lapStats
+                }
             }
 
-            self.currentLapTimes = [:]
-            self.lastLastLapTime = self.lastLapTime
-            self.lastLapTime = self.lastTime
-            self.lapChangeTime = CFAbsoluteTimeGetCurrent()
+            self.lapStats = LapStats()
         }
-        
-        self.lastTime = x.m_lapTime
-        
-        let distIdentifier = floor(x.m_lapDistance / 10)
-        if !self.currentLapTimes.keys.contains(distIdentifier) {
-            self.currentLapTimes[distIdentifier] = x.m_lapTime
-        }
+
+        self.lapStats.setTime(distance: x.m_lapDistance, time: x.m_lapTime)
+        self.lastPacket = x
 
         self.queueUiUpdate {
             guard self.revCounterView != nil else { return }
@@ -121,27 +162,13 @@ class F12016ViewController: TelemetryViewerController {
                 self.fuelMax = x.m_fuel_in_tank
             }
 
-            if self.currentMode != SessionType(x.m_sessionType) || self.pitStatus != x.m_in_pits {
-                self.currentMode = SessionType(x.m_sessionType)
-                self.pitStatus = x.m_in_pits
-                
-                self.resetMode(new: self.currentMode, packet: x)
-            }
-
-            self.renderRevInMode(SessionType(x.m_sessionType), packet: x)
-            self.renderGaugesInMode(SessionType(x.m_sessionType), packet: x)
-            self.renderLabelsInMode(SessionType(x.m_sessionType), packet: x)
+            self.renderRevInMode(packet: x)
+            self.renderGaugesInMode(packet: x)
+            self.renderLabelsInMode(packet: x)
         }
     }
 
-    func resetMode(new mode: SessionType, packet: F1UDPPacket) {
-        self.fuelMax = packet.m_fuel_in_tank
-        self.currentLapTimes = [:]
-        self.lastLapTimes = [:]
-        self.lastTime = 0
-    }
-
-    func renderRevInMode(_ mode: SessionType, packet x: F1UDPPacket) {
+    func renderRevInMode(packet x: F1UDPPacket) {
         let before = 0.807 * x.m_max_rpm
         let beyond = 0.137 * x.m_max_rpm
         let progress = (x.m_engineRate - before) / (x.m_max_rpm - beyond - before)
@@ -163,7 +190,7 @@ class F12016ViewController: TelemetryViewerController {
         }
     }
 
-    func renderGaugesInMode(_ mode: SessionType, packet x: F1UDPPacket) {
+    func renderGaugesInMode(packet x: F1UDPPacket) {
         let latMultiplier: Float = 10, lonMultiplier: Float = 5, suspMultiplier: Float = 2
         self.tyreStatusView.force = TyreStatus.Force(lat: x.m_gforce_lat * latMultiplier, lon: x.m_gforce_lon * lonMultiplier)
         self.tyreStatusView.suspPosition = [x.m_susp_pos_fl * suspMultiplier, x.m_susp_pos_fr * suspMultiplier, x.m_susp_pos_bl * suspMultiplier, x.m_susp_pos_br * suspMultiplier, ]
@@ -174,7 +201,7 @@ class F12016ViewController: TelemetryViewerController {
         self.fuelGauge.setNeedsDisplay()
     }
 
-    func renderLabelsInMode(_ mode: SessionType, packet x: F1UDPPacket) {
+    func renderLabelsInMode(packet x: F1UDPPacket) {
         switch Int(x.m_gear) {
         case 0:
             self.gearLabel.text = "R"
@@ -184,10 +211,10 @@ class F12016ViewController: TelemetryViewerController {
             self.gearLabel.text = "\(Int(x.m_gear - 1))"
         }
 
-        let speedCoef: Double = 3.6
-        self.speedLabel.text = "\(Int(Double(x.m_speed) * speedCoef))"
+        let speedCoef: Float = 3.6
+        self.speedLabel.text = String(format: "%03.0f", x.m_speed * speedCoef)
 
-        if (mode == .Race) {
+        if (self.lastPacket.sessionType == .Race) {
             self.positionLabel.text = "P\(Int(x.m_car_position+1)) L\(Int(x.m_lap+1))"
         } else {
             self.positionLabel.text = "L\(Int(x.m_lap+1))"
@@ -196,21 +223,20 @@ class F12016ViewController: TelemetryViewerController {
         self.fuelLabel.text = String(format:"%.0flb", x.m_fuel_in_tank)
 
         var delta: Float?
-        if CFAbsoluteTimeGetCurrent() - self.lapChangeTime < 3.0 {
-            self.mainLabel.text = self.formatTime(self.lastLapTime)
+        if CFAbsoluteTimeGetCurrent() - self.lapStats.startTime < 3.0 {
             self.mainLabel.font = self.mainLabelBoldFont
-            
-            if let lastLast = self.lastLastLapTime {
-                delta = self.lastLapTime - lastLast
+            self.mainLabel.text = self.formatTime(x.m_last_lap_time)
+
+            if let lastLastTime = self.lastLastLapStats?.totalTime() {
+                delta = x.m_last_lap_time - lastLastTime
             }
         } else {
             self.mainLabel.text = self.formatTime(x.m_lapTime)
             self.mainLabel.font = self.mainLabelFont
 
-            let distIdentifier = floor(x.m_lapDistance / 10)
-            if let last = lastLapTimes[distIdentifier],
-                let current = currentLapTimes[distIdentifier] {
-                delta = current - last
+            if let lastTime = self.referenceLapStats?[x.m_lapDistance],
+               let currentTime = self.lapStats[x.m_lapDistance] {
+                delta = currentTime - lastTime
             }
         }
 

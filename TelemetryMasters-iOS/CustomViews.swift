@@ -152,10 +152,14 @@ class RevCounterView: UIView {
     }
 
     func setRevLight(progress: Float, drsLight: Bool) {
+        if self.type == .limited && !drsLight {
+            self.setLight(at: .drs, false)
+        }
+        
         let range = (self.index(of: .firstRev) ... self.index(of: .lastRev))
         for (relativeIndex, i) in range.enumerated() {
             if drsLight && self.index(of: .drs) == i {
-                continue 
+                continue
             }
             
             self.setLight(at: i, Float(relativeIndex) <= progress * Float(range.count))

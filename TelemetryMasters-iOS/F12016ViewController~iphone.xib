@@ -24,7 +24,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MrG-q8-v6b" customClass="TyreStatus" customModule="TelemetryMasters_iOS" customModuleProvider="target">
@@ -65,17 +65,11 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-0.385" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYr-5q-Fq4">
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="GYr-5q-Fq4" secondAttribute="height" multiplier="4:1" id="YIq-T1-N69"/>
-                    </constraints>
                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="96"/>
                     <color key="textColor" red="0.0001922522367" green="1" blue="0.1971572093" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXZ-Vd-PnQ">
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="pXZ-Vd-PnQ" secondAttribute="height" multiplier="164:119" id="mUU-RF-y7t"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXZ-Vd-PnQ">
                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="72"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -85,10 +79,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="328" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTh-Ls-KQL">
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="VTh-Ls-KQL" secondAttribute="height" multiplier="86:29" id="pdf-P5-z3V"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="328" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTh-Ls-KQL">
                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="138"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -106,6 +97,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01:32.124" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpU-eF-5BD">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="zpU-eF-5BD" secondAttribute="height" multiplier="261:68" id="6LV-fW-LdW"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="48"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -115,9 +109,9 @@
             <constraints>
                 <constraint firstItem="NWg-R2-iAx" firstAttribute="leading" secondItem="hyJ-by-iuK" secondAttribute="leading" id="4fp-kW-6vS"/>
                 <constraint firstItem="VTh-Ls-KQL" firstAttribute="top" secondItem="GYr-5q-Fq4" secondAttribute="bottom" constant="8" id="50m-W2-oyg"/>
-                <constraint firstItem="pXZ-Vd-PnQ" firstAttribute="centerY" secondItem="VTh-Ls-KQL" secondAttribute="centerY" id="9ol-D8-KhJ"/>
                 <constraint firstItem="NWg-R2-iAx" firstAttribute="centerY" secondItem="hyJ-by-iuK" secondAttribute="centerY" id="9pj-gA-aLC"/>
                 <constraint firstAttribute="bottom" secondItem="hyJ-by-iuK" secondAttribute="bottom" constant="7" id="AuR-Yx-Eu0"/>
+                <constraint firstItem="pXZ-Vd-PnQ" firstAttribute="top" secondItem="VTh-Ls-KQL" secondAttribute="top" id="Ay8-5A-QhI"/>
                 <constraint firstItem="NWg-R2-iAx" firstAttribute="centerX" secondItem="hyJ-by-iuK" secondAttribute="centerX" id="Ell-ts-g8G"/>
                 <constraint firstItem="pXZ-Vd-PnQ" firstAttribute="leading" secondItem="MrG-q8-v6b" secondAttribute="trailing" constant="8" id="FZ5-In-cAN"/>
                 <constraint firstItem="MrG-q8-v6b" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="7" id="IzI-gs-Rtc"/>
@@ -129,10 +123,12 @@
                 <constraint firstAttribute="trailing" secondItem="zpU-eF-5BD" secondAttribute="trailing" constant="20" id="ayG-3A-PJe"/>
                 <constraint firstItem="VTh-Ls-KQL" firstAttribute="leading" secondItem="pXZ-Vd-PnQ" secondAttribute="trailing" constant="8" id="brx-1p-mo5"/>
                 <constraint firstItem="cIi-CR-23Q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="cOv-xX-gyZ"/>
+                <constraint firstItem="pXZ-Vd-PnQ" firstAttribute="height" secondItem="VTh-Ls-KQL" secondAttribute="height" id="d8D-Bz-Q8h"/>
                 <constraint firstAttribute="bottom" secondItem="VTh-Ls-KQL" secondAttribute="bottom" constant="10" id="e2M-TQ-xbs"/>
                 <constraint firstItem="GYr-5q-Fq4" firstAttribute="top" secondItem="zpU-eF-5BD" secondAttribute="bottom" constant="8" id="emc-6F-WwW"/>
                 <constraint firstItem="hyJ-by-iuK" firstAttribute="width" secondItem="MrG-q8-v6b" secondAttribute="width" id="g32-1G-XFn"/>
                 <constraint firstItem="zpU-eF-5BD" firstAttribute="width" secondItem="GYr-5q-Fq4" secondAttribute="width" id="jp9-1V-sOz"/>
+                <constraint firstItem="GYr-5q-Fq4" firstAttribute="height" secondItem="VTh-Ls-KQL" secondAttribute="height" id="jzD-Li-RTH"/>
                 <constraint firstItem="w6L-U9-bNJ" firstAttribute="top" secondItem="cIi-CR-23Q" secondAttribute="bottom" constant="16.5" id="kLa-LB-RD7"/>
                 <constraint firstItem="GYr-5q-Fq4" firstAttribute="leading" secondItem="MrG-q8-v6b" secondAttribute="trailing" constant="8" id="ovV-YH-Pk3"/>
                 <constraint firstItem="hyJ-by-iuK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="7" id="pry-Cd-cnM"/>
