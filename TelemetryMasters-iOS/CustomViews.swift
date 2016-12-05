@@ -268,22 +268,22 @@ class PlainGauge: UIView {
     let delimetersLayer = CAShapeLayer()
 
     override func layoutSubviews() {
+        super.layoutSubviews()
+
         self.layer.sublayers?.removeAll()
         self.layer.addSublayer(gaugeLayer)
 
         if delimeters {
             let path = UIBezierPath()
             for i in 0...delimetersCount {
-                path.move(to: CGPoint(x: CGFloat(i) * self.frame.width / 10, y: 0))
-                path.addLine(to: CGPoint(x: CGFloat(i) * self.frame.width / 10, y: self.frame.height))
+                path.move(to: CGPoint(x: CGFloat(i) * self.frame.width / CGFloat(delimetersCount), y: 0))
+                path.addLine(to: CGPoint(x: CGFloat(i) * self.frame.width / CGFloat(delimetersCount), y: self.frame.height))
             }
             
             delimetersLayer.path = path.cgPath
             delimetersLayer.strokeColor = UIColor.black.cgColor
             self.layer.addSublayer(delimetersLayer)
         }
-
-        super.layoutSubviews()
     }
 
     override func setNeedsDisplay() {

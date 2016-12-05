@@ -112,7 +112,7 @@ class F12016ViewController: TelemetryViewerController {
             self.secondaryLabel.font = self.secondaryLabel.font.withSize(72)
             self.mainLabel.font = self.mainLabel.font.withSize(48)
         } else if height == 736 {
-            self.speedLabel.font = self.speedLabel.font.withSize(128)
+            self.speedLabel.font = self.speedLabel.font.withSize(120)
             self.secondaryLabel.font = self.secondaryLabel.font.withSize(112)
             self.mainLabel.font = self.mainLabel.font.withSize(48)
         }
@@ -138,17 +138,9 @@ class F12016ViewController: TelemetryViewerController {
         }
 
         if x.m_lap > self.lastPacket.m_lap {
-            switch x.sessionType {
-            case .Race:
-                self.lastLastLapStats = self.referenceLapStats
-                self.referenceLapStats = self.lapStats
-            default:
-                if let referenceLapStats = self.referenceLapStats, referenceLapStats.totalTime() < self.lapStats.totalTime() {
-                    self.lastLastLapStats = self.referenceLapStats
-                    self.referenceLapStats = self.lapStats
-                }
-            }
-
+            self.lastLastLapStats = self.referenceLapStats
+            self.referenceLapStats = self.lapStats
+            
             self.lapStats = LapStats()
         }
 

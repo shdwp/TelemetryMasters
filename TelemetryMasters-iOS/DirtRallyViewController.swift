@@ -22,6 +22,7 @@ class DirtRallyViewController: TelemetryViewerController {
         super.viewDidLoad()
 
         self.progressGauge.delimetersCount = Settings.DirtRally.numberOfSectors()
+        self.progressGauge.layoutSubviews()
     }
 
     override func telemetryDidGetPacket(_ packet: Any, instance: Telemetry) {
