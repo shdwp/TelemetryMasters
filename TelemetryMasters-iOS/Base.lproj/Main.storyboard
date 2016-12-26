@@ -168,6 +168,7 @@
                         <outlet property="rallySectionsSlider" destination="lzy-Ig-6Ov" id="v7E-XF-t4l"/>
                         <segue destination="gfx-rZ-TWX" kind="show" identifier="proceedToDirtRallyController" id="TDd-0Q-XcK"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="proceedToF1Controller" id="BwP-3l-Twe"/>
+                        <segue destination="dHh-WE-1mt" kind="show" identifier="proceedToPCarsController" id="AZX-VK-r0T"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IC2-Jm-Hao" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -214,7 +215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1156" y="737"/>
+            <point key="canvasLocation" x="-1191" y="737"/>
         </scene>
         <!--Dirt Rally View Controller-->
         <scene sceneID="Qdb-Lr-11G">
@@ -226,6 +227,18 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6v-1h-uhV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1878" y="737"/>
+        </scene>
+        <!--PCars-->
+        <scene sceneID="crL-CO-12o">
+            <objects>
+                <viewController title="PCars" id="dHh-WE-1mt" customClass="PCarsViewController" customModule="TelemetryMasters_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="200"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="axj-et-iFT" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-513" y="737"/>
         </scene>
     </scenes>
     <resources>

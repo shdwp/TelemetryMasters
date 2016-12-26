@@ -38,6 +38,7 @@ class Telemetry {
         case Unknown = -1
         case F12016 = 280
         case DirtRally = 264
+        case PCars = 1367
     }
 
     var delegates: [TelemetryDelegate] = []
@@ -88,7 +89,7 @@ class Telemetry {
                 while true { autoreleasepool {
                     switch self.stage {
                     case .WaitingForGame:
-                        var packet = F1UDPPacket()
+                        var packet = sTelemetryData()
                         let len = UDPRead(self.ld, &packet)
                         if let game = Game(rawValue: len) {
                             self.game = game
@@ -118,6 +119,14 @@ class Telemetry {
                             } else {
                                 self.stage = .WaitingForGame
                             }
+                        case .PCars:
+                            if let packet = self.readPCarsPacket() {
+                                self.delegates.forEach({ (d) in
+                                    d.telemetryDidGetPacket(packet, instance: self)
+                                })
+                            } else {
+                                self.stage = .WaitingForGame
+                            }
                         default: return
                         }
                     default:
@@ -136,12 +145,6 @@ class Telemetry {
     var __last = 0.0
     func readF1Packet() -> F1UDPPacket? {
         var packet = F1UDPPacket()
-        /*
-        UDPRead(self.ld, &packet)
-        print((CFAbsoluteTimeGetCurrent() - __last) * 1000)
-        __last = CFAbsoluteTimeGetCurrent()
-        return packet
- */
         return self.waitForSocket {
             UDPRead(self.ld, &packet)
         } ? packet : nil
@@ -153,6 +156,18 @@ class Telemetry {
             UDPRead(self.ld, &packet)
         } ? packet : nil
     }
+
+    func readPCarsPacket() -> sTelemetryData? {
+        var packet = sTelemetryData()
+        //return self.waitForSocket {
+        var __wait = CFAbsoluteTimeGetCurrent()
+        UDPRead(self.ld, &packet)
+        print("Got packet in ", CFAbsoluteTimeGetCurrent() - __wait)
+        __last = CFAbsoluteTimeGetCurrent()
+        return packet
+        //} ? packet : nil
+    }
+
 
     private func waitForSocket(_ operation: @escaping () -> ()) -> Bool {
         self.sockQueue.addOperation(operation)

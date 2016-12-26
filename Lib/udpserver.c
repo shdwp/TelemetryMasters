@@ -17,7 +17,7 @@
 
 /* this routine echos any messages (UDP datagrams) received */
 
-#define MAXBUF 512
+#define MAXBUF 2048
 
 long UDPRead(int sd, void *packet) {
     struct sockaddr_in remote;
@@ -49,6 +49,13 @@ int UDPSock(in_port_t port) {
     skaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     skaddr.sin_port = htons(port);
 
+    int broadcast = 1;
+    setsockopt(ld,
+               SOL_SOCKET,
+               SO_BROADCAST,
+               (void *) &broadcast,
+               sizeof(broadcast));
+
     if (bind(ld, (struct sockaddr *) &skaddr, sizeof(skaddr))<0) {
         printf("Problem binding\n");
         return -1;
@@ -69,4 +76,37 @@ int UDPSock(in_port_t port) {
     
     /* Go echo every datagram we get */
     return ld;
+}
+
+long UDPWrite(int sd, void *packet, long len, const char *server, int port) {
+    struct sockaddr_in si_other;
+    unsigned int slen = sizeof(si_other);
+
+    si_other.sin_family = AF_INET;
+    si_other.sin_port = htons(port);
+
+    if (inet_aton(server, &si_other.sin_addr) == 0) {
+        return -1;
+    }
+    
+    return sendto(sd, packet, len, 0, (struct sockaddr *) &si_other, slen);
+}
+
+int UDPClient(const char *server, int port) {
+    struct sockaddr_in si_other;
+    int s;
+
+    if ( (s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
+    {
+        return -1;
+    }
+    
+    si_other.sin_family = AF_INET;
+    si_other.sin_port = htons(port);
+
+    if (inet_aton(server, &si_other.sin_addr) == 0) {
+        return -1;
+    }
+
+    return s;
 }

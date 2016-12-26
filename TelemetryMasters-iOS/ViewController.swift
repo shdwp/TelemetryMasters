@@ -47,6 +47,7 @@ class ViewController: UITableViewController, TelemetryDelegate {
 
     override func viewDidLoad() {
         telemetry = Telemetry(port: 20777)
+        //telemetry = Telemetry(port: 5606)
         telemetry?.addDelegate(self)
         telemetry?.startServer()
 
@@ -85,6 +86,8 @@ class ViewController: UITableViewController, TelemetryDelegate {
                     self.performSegue(withIdentifier: "proceedToF1Controller", sender: nil)
                 case .DirtRally:
                     self.performSegue(withIdentifier: "proceedToDirtRallyController", sender: nil)
+                case .PCars:
+                    self.performSegue(withIdentifier: "proceedToPCarsController", sender: nil)
                 default:
                     self.messageLabel.text = "Error: invalid stage"
                 }
@@ -108,6 +111,10 @@ class ViewController: UITableViewController, TelemetryDelegate {
 
             ctrl.addAction(UIAlertAction.init(title: "Dirt Rally", style: .default, handler: { (a) in
                 self.telemetry?.forceConnected(game: .DirtRally)
+            }))
+
+            ctrl.addAction(UIAlertAction.init(title: "PCars", style: .default, handler: { (a) in
+                self.telemetry?.forceConnected(game: .PCars)
             }))
 
             break

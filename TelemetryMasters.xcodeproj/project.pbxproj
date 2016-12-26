@@ -17,6 +17,8 @@
 		F390CDA51D957064003688C5 /* gethost.m in Sources */ = {isa = PBXBuildFile; fileRef = F390CDA41D957064003688C5 /* gethost.m */; };
 		F390CDA81D95756A003688C5 /* DirtRallyViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F390CDA71D95756A003688C5 /* DirtRallyViewController~ipad.xib */; };
 		F390CDAA1D9585CB003688C5 /* DirtRallyViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F390CDA91D9585CB003688C5 /* DirtRallyViewController~iphone.xib */; };
+		F391416E1E0DF31600445DA5 /* PCarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F391416D1E0DF31600445DA5 /* PCarsViewController.swift */; };
+		F39141701E0DF9BE00445DA5 /* PCarsViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F391416F1E0DF9BE00445DA5 /* PCarsViewController~iphone.xib */; };
 		F3FBEDFA1D93F19600CACEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FBEDF91D93F19600CACEBA /* AppDelegate.swift */; };
 		F3FBEDFC1D93F19600CACEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3FBEDFB1D93F19600CACEBA /* Assets.xcassets */; };
 		F3FBEDFF1D93F19600CACEBA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3FBEDFD1D93F19600CACEBA /* MainMenu.xib */; };
@@ -41,6 +43,8 @@
 		F390CDA61D957095003688C5 /* gethost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gethost.h; path = Lib/gethost.h; sourceTree = SOURCE_ROOT; };
 		F390CDA71D95756A003688C5 /* DirtRallyViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "DirtRallyViewController~ipad.xib"; sourceTree = "<group>"; };
 		F390CDA91D9585CB003688C5 /* DirtRallyViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "DirtRallyViewController~iphone.xib"; sourceTree = "<group>"; };
+		F391416D1E0DF31600445DA5 /* PCarsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCarsViewController.swift; sourceTree = "<group>"; };
+		F391416F1E0DF9BE00445DA5 /* PCarsViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PCarsViewController~iphone.xib"; sourceTree = "<group>"; };
 		F3FBEDF61D93F19600CACEBA /* TelemetryMasters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TelemetryMasters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3FBEDF91D93F19600CACEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3FBEDFB1D93F19600CACEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -146,11 +150,13 @@
 				F3FBEE211D94034700CACEBA /* F12016ViewController.swift */,
 				F330CC0D1D954BC3009E8493 /* DirtRallyViewController.swift */,
 				F330CC0A1D954BAE009E8493 /* ViewController.swift */,
+				F391416D1E0DF31600445DA5 /* PCarsViewController.swift */,
 				F330CC061D941DAC009E8493 /* CustomViews.swift */,
 				F390CDA71D95756A003688C5 /* DirtRallyViewController~ipad.xib */,
 				F390CDA91D9585CB003688C5 /* DirtRallyViewController~iphone.xib */,
 				F330CC0F1D954BF2009E8493 /* F12016ViewController~ipad.xib */,
 				F390CD9F1D9560EE003688C5 /* F12016ViewController~iphone.xib */,
+				F391416F1E0DF9BE00445DA5 /* PCarsViewController~iphone.xib */,
 				F3FBEE231D94034700CACEBA /* Main.storyboard */,
 				F330CC0C1D954BB7009E8493 /* Assets */,
 			);
@@ -253,6 +259,7 @@
 				F390CDA81D95756A003688C5 /* DirtRallyViewController~ipad.xib in Resources */,
 				F3FBEE2A1D94034700CACEBA /* LaunchScreen.storyboard in Resources */,
 				F390CDAA1D9585CB003688C5 /* DirtRallyViewController~iphone.xib in Resources */,
+				F39141701E0DF9BE00445DA5 /* PCarsViewController~iphone.xib in Resources */,
 				F3FBEE271D94034700CACEBA /* Assets.xcassets in Resources */,
 				F330CC101D954BF2009E8493 /* F12016ViewController~ipad.xib in Resources */,
 				F390CDA31D956B3A003688C5 /* Instructions.html in Resources */,
@@ -284,6 +291,7 @@
 				F3FBEE221D94034700CACEBA /* F12016ViewController.swift in Sources */,
 				F330CC091D954288009E8493 /* Telemetry.swift in Sources */,
 				F3FBEE201D94034700CACEBA /* AppDelegate.swift in Sources */,
+				F391416E1E0DF31600445DA5 /* PCarsViewController.swift in Sources */,
 				F330CC0E1D954BC3009E8493 /* DirtRallyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
